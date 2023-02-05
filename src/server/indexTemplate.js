@@ -8,11 +8,6 @@ export const indexTemplate = (content) => `
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React App</title>
     <script src="/static/client.js" type="application/javascript" defer></script>
-    ${
-      NODE_ENV === "development"
-        ? '<script src="/reload/reload.js" type="application/javascript" defer></script>'
-        : ""
-    }
 </head>
 <body>
     <div id="react-root">${content}</div>

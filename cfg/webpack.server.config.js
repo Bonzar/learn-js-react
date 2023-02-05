@@ -18,7 +18,7 @@ module.exports = {
     rules: [
       {
         test: /\.[tj]sx?$/,
-        use: ["ts-loader"],
+        use: ["babel-loader"],
       },
     ],
   },

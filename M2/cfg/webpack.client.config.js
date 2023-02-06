@@ -1,17 +1,15 @@
 const path = require("path");
-const { HotModuleReplacementPlugin } = require("webpack");
 
+const { HotModuleReplacementPlugin } = require("webpack");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const TimeFixPlugin = require("time-fix-plugin");
-const webpack = require("webpack");
 
 const NODE_ENV = process.env.NODE_ENV ?? "development";
 const IS_DEV = NODE_ENV === "development";
 const IS_PROD = NODE_ENV === "production";
 
 function setupDevTool() {
-  if (IS_DEV) return "source-map";
+  if (IS_DEV) return "eval-source-map";
   if (IS_PROD) return false;
 }
 
@@ -22,8 +20,9 @@ module.exports = {
   mode: NODE_ENV,
   entry: [
     path.resolve(__dirname, "../src/client/index.jsx"),
-    "webpack-hot-middleware/client?path=http://localhost:3001/static/__webpack_hmr",
-  ],
+    IS_DEV &&
+      "webpack-hot-middleware/client?path=http://localhost:3001/static/__webpack_hmr",
+  ].filter(Boolean),
   output: {
     path: path.resolve(__dirname, "../dist/client"),
     filename: "client.js",
@@ -44,10 +43,25 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.less$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                mode: "local",
+                localIdentName: "[name]__[local]--[hash:base64:5]",
+              },
+            },
+          },
+          "less-loader",
+        ],
+      },
     ],
   },
   plugins: [
-    IS_DEV && new TimeFixPlugin(),
     IS_DEV && new HotModuleReplacementPlugin(),
     IS_DEV && new CleanWebpackPlugin(),
     IS_DEV &&
@@ -55,7 +69,6 @@ module.exports = {
         overlay: {
           sockIntegration: "whm",
         },
-        // exclude: /dist/,
       }),
   ].filter(Boolean),
   devtool: setupDevTool(),

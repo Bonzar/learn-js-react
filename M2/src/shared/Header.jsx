@@ -1,4 +1,5 @@
 import * as React from "react";
+import styles from "./header.less";
 
 export function Header() {
   const fetchApi = (e) => {
@@ -9,15 +10,10 @@ export function Header() {
       .catch((error) => console.error(error));
   };
 
-  // noinspection JSVoidFunctionReturnValueUsed,JSValidateTypes
   return (
     <header>
-      <h1></h1>
-      <h1></h1>
-      <h1></h1>
-      <h1></h1>
-      <h1>asdf asdf asdf </h1>
-      <a onClick={(e) => fetchApi(e)}>Click me </a>
+      <h1 className={styles.example}>Hello every one</h1>
+      <a onClick={(e) => fetchApi(e)}>Click to fetch server api message (see on console)</a>
     </header>
   );
 }

@@ -1,5 +1,3 @@
-const NODE_ENV = process.env.NODE_ENV ?? "development";
-
 export const indexTemplate = (content) => `
 <!DOCTYPE html>
 <html lang="en">

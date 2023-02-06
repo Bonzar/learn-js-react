@@ -3,16 +3,14 @@ const [
   webpackClientConfig,
   webpackServerConfig,
 ] = require("../cfg/webpack.config");
-const nodemon = require("nodemon");
-const path = require("path");
-
-process.argv.push('--timefix');
 
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackHotMiddleware = require("webpack-hot-middleware");
 
 // Client
 const express = require("express");
+const nodemon = require("nodemon");
+const path = require("path");
 
 const hmrServer = express();
 const clientCompiler = webpack(webpackClientConfig);
@@ -26,14 +24,15 @@ hmrServer.use(
   })
 );
 
-hmrServer.use(webpackHotMiddleware(clientCompiler, {
-  path: '/static/__webpack_hmr',
-}));
+hmrServer.use(
+  webpackHotMiddleware(clientCompiler, {
+    path: "/static/__webpack_hmr",
+  })
+);
 
 hmrServer.listen(3001, () => {
-  console.log('Hmr Server successfully started');
+  console.log("Hmr Server successfully started");
 });
-
 
 // Server
 compiler = webpack(webpackServerConfig);
@@ -52,9 +51,7 @@ compiler.run((err) => {
 
   nodemon({
     script: path.resolve(__dirname, "../dist/server/server.js"),
-    watch: [
-      path.resolve(__dirname, "../dist/server"),
-      path.resolve(__dirname, "../dist/client"),
-    ],
+    watch: path.resolve(__dirname, "../dist/server/"),
+    "delay": 1000
   });
 });

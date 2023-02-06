@@ -1,6 +1,6 @@
 import * as React from "react";
-import {Header} from "./Header";
-import {TodoApp} from "./TodoApp";
+import { Header } from "./Header";
+import { TodoApp } from "./TodoApp";
 
 export function Body() {
   return (
@@ -8,5 +8,6 @@ export function Body() {
       <Header />
       <TodoApp />
     </div>
-  )
+  );
 }
+

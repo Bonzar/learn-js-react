@@ -12,9 +12,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.json({Hello: 'hi'});
+  res.json({ message: "Hi, from server api." });
 });
 
 app.listen(3000, () => {
   console.log("Server started on http://localhost:3000");
+});
+
+app.on('uncaughtException',  (err) => {
+  console.error('Caught exception: ', err);
 });

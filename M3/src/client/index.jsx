@@ -1,4 +1,7 @@
-import { hydrateRoot } from "react-dom/client";
-import { Body } from "../shared/Body";
+import * as React from "react";
+import * as ReactDom from "react-dom";
+import { Header } from "../shared/Header.tsx";
 
-hydrateRoot(document.getElementById("react-root"), <Body />);
+window.addEventListener("load", () => {
+  ReactDom.hydrate(<Header />, document.getElementById("react_root"));
+});

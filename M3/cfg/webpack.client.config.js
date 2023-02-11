@@ -1,50 +1,40 @@
 const path = require("path");
-
 const { HotModuleReplacementPlugin } = require("webpack");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const NODE_ENV = process.env.NODE_ENV ?? "development";
+const NODE_ENV = process.env.NODE_ENV;
 const IS_DEV = NODE_ENV === "development";
 const IS_PROD = NODE_ENV === "production";
 
-function setupDevTool() {
-  if (IS_DEV) return "eval-source-map";
+function setupDevtool() {
+  if (IS_DEV) return "eval";
   if (IS_PROD) return false;
 }
-
 module.exports = {
   resolve: {
-    extensions: [".ts", ".tsx", ".jsx", "..."],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+    alias: {
+      "react-dom": IS_DEV ? "@hot-loader/react-dom" : "react-dom",
+    },
   },
-  mode: NODE_ENV,
+  mode: NODE_ENV ? NODE_ENV : "development",
   entry: [
     path.resolve(__dirname, "../src/client/index.jsx"),
-    IS_DEV &&
-      "webpack-hot-middleware/client?path=http://localhost:3001/static/__webpack_hmr",
-  ].filter(Boolean),
+    "webpack-hot-middleware/client?path=//localhost:3001/static/__webpack_hmr",
+  ],
   output: {
     path: path.resolve(__dirname, "../dist/client"),
     filename: "client.js",
-    publicPath: "/static/",
+    publicPath: "//localhost:3001/static",
   },
   module: {
     rules: [
       {
         test: /\.[tj]sx?$/,
-        use: [
-          {
-            loader: require.resolve("babel-loader"),
-            options: {
-              plugins: [
-                IS_DEV && require.resolve("react-refresh/babel"),
-              ].filter(Boolean),
-            },
-          },
-        ],
+        use: ["ts-loader"],
       },
       {
-        test: /\.less$/,
+        test: /\.css$/,
         use: [
           "style-loader",
           {
@@ -56,20 +46,13 @@ module.exports = {
               },
             },
           },
-          "less-loader",
         ],
       },
     ],
   },
-  plugins: [
-    IS_DEV && new HotModuleReplacementPlugin(),
-    IS_DEV && new CleanWebpackPlugin(),
-    IS_DEV &&
-      new ReactRefreshWebpackPlugin({
-        overlay: {
-          sockIntegration: "whm",
-        },
-      }),
-  ].filter(Boolean),
-  devtool: setupDevTool(),
+  devtool: setupDevtool(),
+
+  plugins: IS_DEV
+    ? [new CleanWebpackPlugin(), new HotModuleReplacementPlugin()]
+    : [],
 };

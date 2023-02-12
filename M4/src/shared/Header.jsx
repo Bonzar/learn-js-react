@@ -1,5 +1,7 @@
 import * as React from "react";
 import styles from "./header.less";
+import StarWarsNameClass from "./StarWarsNameClass";
+import StarWarsNameFunction from "./StarWarsNameFunciton";
 
 export function Header() {
   const fetchApi = (e) => {
@@ -12,7 +14,10 @@ export function Header() {
 
   return (
     <header>
-      <h1 className={styles.example}>Hello every one</h1>
+      <h1 className={styles.example}>
+        <StarWarsNameClass />
+        <StarWarsNameFunction />
+      </h1>
       <a onClick={(e) => fetchApi(e)}>Click to fetch server api message (see on console)</a>
     </header>
   );

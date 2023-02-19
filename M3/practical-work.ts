@@ -164,6 +164,7 @@ interface IMyArray2<T> {
 }
 
 const myArrayNum2: IMyArray2<number> = [1, 2, 3, 4];
+// @ts-ignore
 const reduce2NumResult = myArrayNum2.reduce((total, current) => total + current); // here total in unknown
 
 

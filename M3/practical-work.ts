@@ -38,7 +38,7 @@ const result = concat("Hello ", "World"); // -> Hello World;
 interface IMyHometask {
   howIDoIt: string;
   someArray: Array<string | number>;
-  withData: Array<Pick<IMyHometask, "howIDoIt" | "someArray">>;
+  withData: Array<Omit<IMyHometask, "withData">>;
 }
 
 const MyHometask: IMyHometask = {

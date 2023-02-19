@@ -129,6 +129,45 @@ const reduceNumResult2 = myArrayNum.reduce(
 );
 
 
+/* ПОПЫТКА №2
+
+ Почему
+
+ undefined extends U ? T : U
+    не равно
+ U extends undefined ? T : U
+
+ Ниже два примера иллюстрирующих это
+
+ В примере с IMyArray1, когда мы не используем начальное значение, total и результат reduce определяется верно
+ В примере с IMyArray2, так же без начального значения, total и результат reduce -> unknown
+   Как я понял total неопознан, так как условие "U extends undefined ? T : U" всегда ложно, но почему?
+ */
+
+interface IMyArray1<T> {
+  [n: number]: T;
+  reduce<U>(
+    fn: (total: undefined extends U ? T : U, current: T) => U,
+    initialValue?: U
+  ): undefined extends U ? T : U;
+}
+
+const myArrayNum1: IMyArray1<number> = [1, 2, 3, 4];
+const reduce1NumResult = myArrayNum1.reduce((total, current) => total + current);
+
+interface IMyArray2<T> {
+  [n: number]: T;
+  reduce<U>(
+    fn: (total: U extends undefined ? T : U, current: T) => U,
+    initialValue?: U
+  ): U extends undefined ? T : U;
+}
+
+const myArrayNum2: IMyArray2<number> = [1, 2, 3, 4];
+const reduce2NumResult = myArrayNum2.reduce((total, current) => total + current); // here total in unknown
+
+
+
 
 
 /**

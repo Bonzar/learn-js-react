@@ -1,14 +1,14 @@
 import express from "express";
 import ReactDOM from "react-dom/server";
 import { indexTemplate } from "./indexTemplate";
-import { Body } from "../shared/Body";
+import App from "../shared/App";
 
 const app = express();
 
 app.use("/static", express.static("./dist/client"));
 
 app.get("/", (req, res) => {
-  res.send(indexTemplate(ReactDOM.renderToString(<Body />)));
+  res.send(indexTemplate(ReactDOM.renderToString(<App />)));
 });
 
 app.get("/api", (req, res) => {

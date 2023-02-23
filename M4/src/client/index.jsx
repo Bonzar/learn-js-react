@@ -1,4 +1,4 @@
 import { hydrateRoot } from "react-dom/client";
-import { Body } from "../shared/Body";
+import App from "../shared/App";
 
-hydrateRoot(document.getElementById("react-root"), <Body />);
+hydrateRoot(document.getElementById("react-root"), <App />);

@@ -2,6 +2,8 @@ const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 
 const NODE_ENV = process.env.NODE_ENV ?? "development";
+const GLOBAL_CSS_REGEXP = /\.global\.css$/
+
 
 module.exports = {
   target: "node",
@@ -21,7 +23,7 @@ module.exports = {
         use: ["babel-loader"],
       },
       {
-        test: /\.less$/,
+        test: /\.css$/,
         use: [
           {
             loader: "css-loader",
@@ -33,9 +35,13 @@ module.exports = {
               },
             },
           },
-          "less-loader",
         ],
+        exclude: GLOBAL_CSS_REGEXP,
       },
+      {
+        test: GLOBAL_CSS_REGEXP,
+        use: ["css-loader"]
+      }
     ],
   },
   externals: [nodeExternals()],

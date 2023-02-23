@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --black:          #333333;
+  --orange:         #CC6633;
+  --green:          #A4CC33;
+  --whiteLightness: 100%;
+  --white:          hsl(0, 0%, var(--whiteLightness));
+  --gray96:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --grey95:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --grey93:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --grey85:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --grey77:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey60:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey40:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+}
+
+body {
+  background-color: var(--gray96);
+  font-size: 14px;
+  line-height: 16px;
+  font-family: 'Roboto', serif;
+}
+
+* {
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+}
+

@@ -1,17 +1,17 @@
 {
-  "homepage": "http://PikchaGameDev.github.io/react-deploy",
-  "name": "reactapp",
+  "name": "bonzar-skillbox-reactjs",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "predeploy": "npm run build:dev",
-    "deploy": "gh-pages -d build:dev",
-    "clean": "rm -rf dist",
-    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "npm run clean && cross-env NODE_ENV=development node ./bin/dev.js",
+    "build": "npx webpack --config cfg/webpack.config.js",
+    "clean": "rm -rf ./dist",
+    "dev": "npm run clean && node bin/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.skillbox.ru:vladislav_navoian/ReactJS.git"
   },
   "author": "",
   "license": "ISC",

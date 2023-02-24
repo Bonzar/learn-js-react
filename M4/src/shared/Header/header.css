@@ -1,0 +1,12 @@
+.header {
+
+}
+
+@media all and (min-width: 1024px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 4rem 4rem 0 4rem;
+    row-gap: 3.1rem;
+  }
+}

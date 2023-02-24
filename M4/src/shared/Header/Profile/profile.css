@@ -1,0 +1,33 @@
+.profile {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.profileUsername {
+  display: none;
+  font-weight: 500;
+  color: var(--orange);
+  font-size: 2rem;
+  margin-left: 1.3rem;
+  padding: 0.25rem 0.13rem 0 0;
+}
+
+.profileAvatar {
+  height: 3rem;
+}
+
+@media all and (min-width: 1024px) {
+  .profile {
+    margin-left: 3rem;
+  }
+
+  .profileAvatar {
+    height: 5rem;
+    width: 5rem;
+  }
+
+  .profileUsername {
+    display: unset;
+  }
+}

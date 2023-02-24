@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap&weight=500');
 
 :root {
   --black:          #333333;
@@ -6,7 +6,7 @@
   --green:          #A4CC33;
   --whiteLightness: 100%;
   --white:          hsl(0, 0%, var(--whiteLightness));
-  --gray96:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --grey96:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
   --grey95:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
   --grey93:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
   --grey85:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
@@ -15,10 +15,13 @@
   --grey40:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
 }
 
+html {
+  font-size: 10px;
+}
+
 body {
-  background-color: var(--gray96);
-  font-size: 14px;
-  line-height: 16px;
+  background-color: var(--grey96);
+  font-size: 1.4rem;
   font-family: 'Roboto', serif;
 }
 

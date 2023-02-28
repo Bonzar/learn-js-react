@@ -6,13 +6,13 @@
   --green:          #A4CC33;
   --whiteLightness: 100%;
   --white:          hsl(0, 0%, var(--whiteLightness));
-  --grey96:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
-  --grey95:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
-  --grey93:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
-  --grey85:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
-  --grey77:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
-  --grey60:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
-  --grey40:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+  --greyF4:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyD9:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey66:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
 }
 
 html {
@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  background-color: var(--grey96);
+  background-color: var(--greyF4);
   font-size: 1.4rem;
   font-family: 'Roboto', serif;
 }

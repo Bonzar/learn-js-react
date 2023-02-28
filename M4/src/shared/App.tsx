@@ -5,12 +5,15 @@ import "./main.global.css";
 import { Layout } from "./Layout";
 import { Content } from "./Content";
 import { Header } from "./Header";
+import { CardsList } from "./CardsList";
 
 const App = () => {
   return (
     <Layout>
       <Header />
-      <Content />
+      <Content>
+        <CardsList />
+      </Content>
     </Layout>
   );
 };

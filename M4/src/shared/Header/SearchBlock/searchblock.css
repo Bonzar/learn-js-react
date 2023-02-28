@@ -1,23 +1,22 @@
 .searchBlock {
-  height: 5.8rem;
   display: flex;
-  padding: 1.4rem 2rem ;
-  background-color: var(--white);
-  justify-content: space-between;
   flex-flow: row nowrap;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 0.7rem 0.7rem;
-  margin-bottom: 3.8rem;
+  justify-content: space-between;
   align-items: center;
+  padding: 14px 20px;
+  background-color: var(--white);
+  border-radius: 0 0 7px 7px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin: 0 0 38px;
 }
 
 @media all and (min-width: 1024px) {
   .searchBlock {
-    background-color: transparent;
-    box-shadow: unset;
-    flex-direction: row-reverse;
-    margin: 0;
     padding: 0;
-    height: unset;
+    margin: 0 0 0 auto;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    order: 3;
   }
 }

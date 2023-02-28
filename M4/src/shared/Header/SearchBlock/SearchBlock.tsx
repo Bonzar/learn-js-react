@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./serchblock.css";
+import styles from "./searchblock.css";
 
-export function SerchBlock() {
+export function SearchBlock() {
   return <div className={styles.searchBlock}>Search Block</div>;
 }

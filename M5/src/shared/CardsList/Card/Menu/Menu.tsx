@@ -1,16 +1,66 @@
-import React from 'react';
-import styles from './menu.css';
+import styles from "./menu.css";
+import { Dropdown } from "../../../components/UI/Dropdown";
+import { GenericList } from "../../../components/UI/GenericList";
+import { assignRandomId } from "../../../../utils/js/assignRandomId";
+import { pipe, mergeLeft, mergeRight, intersperse, objOf } from "ramda";
+import {
+  MenuIcon,
+  CommentsIcon,
+  ShareIcon,
+  HideIcon,
+  SaveIcon,
+  ReportIcon,
+} from "../../../assets/icons";
+
+const actionsList = [
+  <>
+    <CommentsIcon />
+    <span>Комментарии</span>
+  </>,
+  <>
+    <ShareIcon />
+    <span>Поделиться</span>
+  </>,
+  <>
+    <HideIcon />
+    <span>Скрыть</span>
+  </>,
+  <>
+    <SaveIcon />
+    <span>Сохранить</span>
+  </>,
+  <>
+    <ReportIcon />
+    <span>Пожаловаться</span>
+  </>,
+].map(pipe(objOf("children"), mergeRight({ className: styles.menuItem })));
+
+const actionsListWithDividers = intersperse(
+  { children: <hr></hr>, className: styles.divider },
+  actionsList
+);
 
 export function Menu() {
   return (
     <div className={styles.menu}>
-      <button className={styles.menuButton}>
-        <svg width="5" height="20" viewBox="0 0 5 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="2.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
-          <circle cx="2.5" cy="10" r="2.5" fill="#D9D9D9"/>
-          <circle cx="2.5" cy="17.5" r="2.5" fill="#D9D9D9"/>
-        </svg>
-      </button>
+      <Dropdown
+        button={
+          <button className={styles.menuButton}>
+            <MenuIcon />
+          </button>
+        }
+      >
+        <div className={styles.dropdown}>
+          <ul className={styles.menuItemsList}>
+            <GenericList
+              list={actionsListWithDividers.map(
+                pipe(mergeLeft({ As: "li" as const }), assignRandomId)
+              )}
+            />
+          </ul>
+          <div className={styles.closeButton}>Закрыть</div>
+        </div>
+      </Dropdown>
     </div>
   );
 }

@@ -14,6 +14,7 @@
   transform: rotate(90deg);
   border-radius: 31px;
 }
+
 .menuButton:active {
   background-color: rgba(51, 51, 51, 0.1);
 }
@@ -25,6 +26,37 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   background-color: var(--white);
+  z-index: 1;
+}
+
+.menuItemsList {
+  padding: 0 20px;
+}
+
+.menuItem {
+  padding: 12px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.menuItem > span {
+  color: var(--grey99);
+}
+
+.menuItem > svg > path {
+  fill: var(--grey99);
+}
+
+
+.menuItem > svg + span {
+  margin-left: 7px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--greyEC);
 }
 
 .closeButton {
@@ -32,6 +64,11 @@
   padding: 12px 23px;
   border-radius: 0 0 3px 3px;
   width: 100%;
+  text-align: center;
+}
+
+.closeButton span {
+  color: var(--grey66);
 }
 
 @media all and (min-width: 1024px) {
@@ -55,5 +92,31 @@
 @media all and (min-width: 1540px) {
   .menuButton:hover {
     background-color: rgba(51, 51, 51, 0.1);
+  }
+
+  .menuItemsList {
+    padding: 10px 20px;
+  }
+
+  .menuItem {
+    padding: 5px 0;
+  }
+
+  .menuItem:hover > span {
+    color: var(--orange);
+  }
+
+  .menuItem:hover > svg > path {
+    fill: var(--orange);
+  }
+
+  .dropdown {
+    right: 50%;
+    transform: translateX(50%);
+    top: 19px
+  }
+
+  .closeButton {
+    display: none;
   }
 }

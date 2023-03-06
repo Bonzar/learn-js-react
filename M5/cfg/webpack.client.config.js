@@ -63,7 +63,11 @@ module.exports = {
       {
         test: GLOBAL_CSS_REGEXP,
         use: ["style-loader", "css-loader"]
-      }
+      },
+      {
+        test: /\.svg/,
+        use: ["@svgr/webpack"],
+      },
     ],
   },
   plugins: [

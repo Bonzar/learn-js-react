@@ -1,3 +1,6 @@
 **/node_modules
 .idea
 */dist
+/M5/src/shared/FP-notebook.ts
+/M5/src/shared/hooks-notebook.tsx
+/M5/src/shared/FP-notebook.tsx

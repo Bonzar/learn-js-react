@@ -48,7 +48,7 @@ module.exports = {
       },
     ],
   },
-  externals: [nodeExternals()],
+  externals: [nodeExternals({allowlist: 'the-new-css-reset/css/reset.css'})],
   optimization: {
     minimize: false,
   },

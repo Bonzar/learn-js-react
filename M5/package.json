@@ -21,7 +21,8 @@
     "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "unique-names-generator": "^4.7.1"
+    "unique-names-generator": "^4.7.1",
+    "the-new-css-reset": "1.8.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

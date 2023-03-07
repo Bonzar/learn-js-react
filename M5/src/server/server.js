@@ -2,10 +2,11 @@ import express from "express";
 import ReactDOM from "react-dom/server";
 import { indexTemplate } from "./indexTemplate";
 import App from "../shared/App";
+import * as path from "path";
 
 const app = express();
 
-app.use("/static", express.static("./dist/client"));
+app.use("/static", express.static(path.resolve(__dirname, "../client")));
 
 app.get("/", (req, res) => {
   res.send(indexTemplate(ReactDOM.renderToString(<App />)));

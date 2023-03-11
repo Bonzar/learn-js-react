@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./dropdown.css";
-import {stopPropagation} from "../../../../utils/react/stopPropagation";
+import { stopPropagation } from "../../../../utils/react/stopPropagation";
 
 interface IDropdownProps {
   className?: string;
@@ -23,7 +23,13 @@ export function Dropdown({
 }: IDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
 
+  useEffect(() => setIsDropdownOpen(isOpen), [isOpen]);
+
   useEffect(() => {
+    const handleBodyClick = () => {
+      setIsDropdownOpen(false);
+    };
+
     if (isDropdownOpen) {
       document.body.addEventListener("click", handleBodyClick);
     } else {
@@ -33,15 +39,7 @@ export function Dropdown({
     return () => document.body.removeEventListener("click", handleBodyClick);
   }, [isDropdownOpen]);
 
-  React.useEffect(() => setIsDropdownOpen(isOpen), [isOpen]);
-  React.useEffect(
-    () => (isDropdownOpen ? onOpen() : onClose()),
-    [isDropdownOpen]
-  );
-
-  const handleBodyClick = () => {
-    setIsDropdownOpen(false);
-  };
+  useEffect(() => (isDropdownOpen ? onOpen() : onClose()), [isDropdownOpen]);
 
   const handleOpen = () => {
     if (isOpen === undefined) {

@@ -14,7 +14,7 @@ export function Menu() {
         }
       >
         <div className={styles.dropdown}>
-          <MenuItemsList />
+          <MenuItemsList postId="1234"/>
           <div className={styles.closeButton}>Закрыть</div>
         </div>
       </Dropdown>

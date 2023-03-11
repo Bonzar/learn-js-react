@@ -40,12 +40,21 @@ const actionsListWithDividers = intersperse(
   actionsList
 );
 
-export function MenuItemsList() {
+const actionsListWithDividersAndId =
+  actionsListWithDividers.map(assignRandomId);
+
+interface IMenuItemsListProps {
+  postId: string;
+}
+
+export function MenuItemsList({ postId }: IMenuItemsListProps) {
   return (
     <ul className={styles.menuItemsList}>
       <GenericList
-        list={actionsListWithDividers.map(
-          pipe(mergeLeft({ As: "li" as const }), assignRandomId)
+        list={actionsListWithDividersAndId.map(
+          pipe(
+            mergeLeft({ As: "li" as const, onClick: () => console.log(postId) })
+          )
         )}
       />
     </ul>

@@ -3,7 +3,7 @@ import React from "react";
 export interface IItem {
   id: string;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent) => void;
   className?: string;
   As?: "a" | "li" | "button" | "div";
   href?: string;

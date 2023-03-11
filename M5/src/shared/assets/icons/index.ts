@@ -1,15 +1,8 @@
-import MenuIcon from "./menu.svg";
-import CommentsIcon from "./comments.svg";
-import ShareIcon from "./share.svg";
-import HideIcon from "./hide.svg";
-import SaveIcon from "./save.svg";
-import ReportIcon from "./report.svg";
+import MenuIcon from "./menuIcon.svg";
+import CommentsIcon from "./commentsIcon.svg";
+import ShareIcon from "./shareIcon.svg";
+import HideIcon from "./hideIcon.svg";
+import SaveIcon from "./saveIcon.svg";
+import ReportIcon from "./reportIcon.svg";
 
-export {
-  MenuIcon,
-  CommentsIcon,
-  ShareIcon,
-  HideIcon,
-  SaveIcon,
-  ReportIcon,
-};
+export { MenuIcon, CommentsIcon, ShareIcon, HideIcon, SaveIcon, ReportIcon };

@@ -39,7 +39,15 @@ export function Dropdown({
     return () => document.body.removeEventListener("click", handleBodyClick);
   }, [isDropdownOpen]);
 
-  useEffect(() => (isDropdownOpen ? onOpen() : onClose()), [isDropdownOpen]);
+  useEffect(() => {
+    if (isDropdownOpen !== undefined) {
+      if (isDropdownOpen) {
+        onOpen();
+      } else {
+        onClose();
+      }
+    }
+  }, [isDropdownOpen]);
 
   const handleOpen = () => {
     if (isOpen === undefined) {
@@ -48,11 +56,15 @@ export function Dropdown({
   };
 
   return (
-    <div className={[styles.container, className].join(" ")}>
+    <div
+      data-testid="dropdown"
+      className={[styles.container, className].filter(Boolean).join(" ")}
+    >
       <div onClick={stopPropagation(handleOpen)}>{button}</div>
       {isDropdownOpen && (
-        <div className={styles.listContainer}>
+        <div data-testid="list-container" className={styles.listContainer}>
           <div
+            data-testid="list"
             className={styles.list}
             onClick={(e) => {
               e.stopPropagation();

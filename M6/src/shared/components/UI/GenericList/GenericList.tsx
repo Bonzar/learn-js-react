@@ -5,22 +5,33 @@ export interface IItem {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent) => void;
   className?: string;
-  As?: "a" | "li" | "button" | "div";
-  href?: string;
+  As?: "li" | "button" | "div";
 }
 
+type IItemAnchor = Omit<IItem, "As"> & { As: "a"; href?: string };
+
 interface IGenericListProps {
-  list: IItem[];
+  list: Array<IItem | IItemAnchor>;
 }
+
+const NOOP = () => {};
 
 export function GenericList({ list }: IGenericListProps) {
   return (
     <>
-      {list.map(({ As = "div", children, onClick, className, id, href }) => (
-        <As className={className} onClick={onClick} key={id} href={href}>
-          {children}
-        </As>
-      ))}
+      {list.map((props) => {
+        const { As = "div", children, onClick = NOOP, className, id } = props;
+        return (
+          <As
+            className={className}
+            onClick={onClick}
+            key={id}
+            href={props.As === "a" ? props.href : undefined}
+          >
+            {children}
+          </As>
+        );
+      })}
     </>
   );
 }

@@ -1,7 +1,8 @@
 import styles from "./menu.css";
 import { Dropdown } from "../../../components/UI/Dropdown";
-import { MenuIcon } from "../../../assets/icons";
 import { MenuItemsList } from "./MenuItemsList";
+import { Icon } from "../../../components/UI/Icon";
+import { Text } from "../../../components/UI/Text";
 
 export function Menu() {
   return (
@@ -9,13 +10,15 @@ export function Menu() {
       <Dropdown
         button={
           <button className={styles.menuButton}>
-            <MenuIcon />
+            <Icon name="MenuIcon" size={20} />
           </button>
         }
       >
         <div className={styles.dropdown}>
-          <MenuItemsList postId="1234"/>
-          <div className={styles.closeButton}>Закрыть</div>
+          <MenuItemsList postId="1234" />
+          <Text As="div" className={styles.closeButton} color="grey66">
+            Закрыть
+          </Text>
         </div>
       </Dropdown>
     </div>

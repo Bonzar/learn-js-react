@@ -3,35 +3,29 @@ import styles from "./menuitemslist.css";
 import { GenericList } from "../../../../components/UI/GenericList";
 import { intersperse, mergeLeft, mergeRight, objOf, pipe } from "ramda";
 import { assignRandomId } from "../../../../../utils/js/assignRandomId";
-
-import {
-  CommentsIcon,
-  ShareIcon,
-  HideIcon,
-  SaveIcon,
-  ReportIcon,
-} from "../../../../assets/icons";
+import { Icon } from "../../../../components/UI/Icon";
+import { Text } from "../../../../components/UI/Text";
 
 const actionsList = [
   <>
-    <CommentsIcon />
-    <span>Комментарии</span>
+    <Icon name="CommentsIcon" size={16} />
+    <Text color="grey99">Комментарии</Text>
   </>,
   <>
-    <ShareIcon />
-    <span>Поделиться</span>
+    <Icon name="ShareIcon" size={15} />
+    <Text color="grey99">Поделиться</Text>
   </>,
   <>
-    <HideIcon />
-    <span>Скрыть</span>
+    <Icon name="HideIcon" size={14} />
+    <Text color="grey99">Скрыть</Text>
   </>,
   <>
-    <SaveIcon />
-    <span>Сохранить</span>
+    <Icon name="SaveIcon" size={14} />
+    <Text color="grey99">Сохранить</Text>
   </>,
   <>
-    <ReportIcon />
-    <span>Пожаловаться</span>
+    <Icon name="ReportIcon" size={16} />
+    <Text color="grey99">Пожаловаться</Text>
   </>,
 ].map(pipe(objOf("children"), mergeRight({ className: styles.menuItem })));
 

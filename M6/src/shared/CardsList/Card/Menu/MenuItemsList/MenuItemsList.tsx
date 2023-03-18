@@ -8,23 +8,23 @@ import { Text } from "../../../../components/UI/Text";
 
 const actionsList = [
   <>
-    <Icon name="CommentsIcon" size={16} />
+    <Icon name="Comments" size={16} />
     <Text color="grey99">Комментарии</Text>
   </>,
   <>
-    <Icon name="ShareIcon" size={15} />
+    <Icon name="Share" size={15} />
     <Text color="grey99">Поделиться</Text>
   </>,
   <>
-    <Icon name="HideIcon" size={14} />
+    <Icon name="Hide" size={14} />
     <Text color="grey99">Скрыть</Text>
   </>,
   <>
-    <Icon name="SaveIcon" size={14} />
+    <Icon name="Save" size={14} />
     <Text color="grey99">Сохранить</Text>
   </>,
   <>
-    <Icon name="ReportIcon" size={16} />
+    <Icon name="Report" size={16} />
     <Text color="grey99">Пожаловаться</Text>
   </>,
 ].map(pipe(objOf("children"), mergeRight({ className: styles.menuItem })));

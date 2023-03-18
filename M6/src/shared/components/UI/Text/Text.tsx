@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 type TTextSizes = 28 | 20 | 16 | 14 | 12 | 10;
 
-type TColors =
+export type TColors =
   | "black"
   | "orange"
   | "green"

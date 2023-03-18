@@ -10,7 +10,7 @@ export function Menu() {
       <Dropdown
         button={
           <button className={styles.menuButton}>
-            <Icon name="MenuIcon" size={20} />
+            <Icon name="Menu" size={20} color="greyD9" />
           </button>
         }
       >

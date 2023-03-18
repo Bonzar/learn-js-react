@@ -1,0 +1,50 @@
+.menuItemsList {
+  padding: 0 20px;
+}
+
+.menuItem {
+  padding: 12px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menuItem > svg > path {
+  fill: var(--grey99);
+}
+
+.menuItem > svg + span {
+  margin-left: 5px;
+}
+
+.divider {
+  height: 1px;
+  margin-bottom: -1px;
+  width: 100%;
+  background-color: var(--greyEC);
+}
+
+@media all and (min-width: 1024px) {
+  .menuItem {
+    padding: 11px 0;
+  }
+}
+
+@media all and (min-width: 1540px) {
+  .menuItemsList {
+    padding: 10px 20px;
+  }
+
+  .menuItem {
+    padding: 5px 0;
+  }
+
+  .menuItem:hover > span {
+    color: var(--orange);
+  }
+
+  .menuItem:hover > svg > path {
+    fill: var(--orange);
+  }
+}

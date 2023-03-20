@@ -7,6 +7,7 @@ import SaveIcon from "./saveIcon.svg";
 import SaveDarkIcon from "./saveDarkIcon.svg";
 import ReportIcon from "./reportIcon.svg";
 import UpVoteIcon from "./upVoteIcon.svg";
+import AvatarIcon from "./avatarIcon.svg";
 
 export {
   UpVoteIcon,
@@ -18,4 +19,5 @@ export {
   SaveIcon,
   SaveDarkIcon,
   ReportIcon,
+  AvatarIcon,
 };

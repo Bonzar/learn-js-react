@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./searchblock.css";
-import { Text } from "../../components/UI/Text";
+import { UserBlock } from "./UserBlock";
 
 export function SearchBlock() {
   return (
-    <Text As="div" className={styles.searchBlock}>
-      Search Block
-    </Text>
+    <div className={styles.searchBlock}>
+      <UserBlock />
+    </div>
   );
 }

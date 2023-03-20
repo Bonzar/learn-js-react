@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { HotModuleReplacementPlugin } = require("webpack");
+const { HotModuleReplacementPlugin, DefinePlugin } = require("webpack");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
@@ -79,6 +79,7 @@ module.exports = {
           sockIntegration: "whm",
         },
       }),
+    new DefinePlugin({ "process.env.CLIENT_ID": `'${process.env.CLIENT_ID}'` }),
   ].filter(Boolean),
   devtool: setupDevTool(),
 };

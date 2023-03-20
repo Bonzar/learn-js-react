@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx webpack --config cfg/webpack.config.js",
     "clean": "rm -rf ./dist",
-    "dev": "npm run clean && node bin/dev.js",
+    "dev": "npm run clean && env NODE_ENV=development CLIENT_ID=UEeMmkjxYRSjI-A-MKY8Pw node bin/dev.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },

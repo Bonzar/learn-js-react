@@ -12,6 +12,11 @@ app.get("/", (req, res) => {
   res.send(indexTemplate(ReactDOM.renderToString(<App />)));
 });
 
+app.get("/auth", (req, res) => {
+  //  req.query.code;
+  res.send(indexTemplate(ReactDOM.renderToString(<App />)));
+});
+
 app.get("/api", (req, res) => {
   res.json({ message: "Hi, from server api." });
 });

@@ -1,20 +1,46 @@
-import React from "react";
 import styles from "./cardpreview.css";
 import { Text } from "../../../components/UI/Text";
+import { Icon } from "../../../components/UI/Icon";
+import { formatDistanceToNow } from "date-fns";
+import ruLocale from "date-fns/locale/ru";
 
-export function CardPreview() {
+interface ICardPreviewProps {
+  title: string;
+  authorUsername: string;
+  createdAtUTC: number;
+  authorAvatarSrc?: string;
+  previewSrc?: string;
+  postUrl: string;
+}
+
+export function CardPreview({
+  authorAvatarSrc,
+  authorUsername,
+  createdAtUTC,
+  title,
+  previewSrc,
+  postUrl,
+}: ICardPreviewProps) {
   return (
     <div className={styles.cardPreview}>
       <div className={styles.textContent}>
         <div className={styles.metaData}>
           <div className={styles.userLink}>
-            <img
-              className={styles.avatar}
-              src="https://secure.gravatar.com/avatar/1d0f47d0fa903825e7c0e5d7f83d9b66?s=46&d=identicon"
-              alt="avatar"
-            />
-            <a href="#user-url" className={styles.username}>
-              <Text color="orange">Дмитрий Гришин</Text>
+            {authorAvatarSrc ? (
+              <img
+                className={styles.avatar}
+                src={authorAvatarSrc}
+                alt="avatar"
+              />
+            ) : (
+              <Icon className={styles.avatar} name="Avatar" color="greyD9" />
+            )}
+
+            <a
+              href={`https://www.reddit.com/user/${authorUsername}`}
+              className={styles.username}
+            >
+              <Text color="orange">{authorUsername}</Text>
             </a>
           </div>
           <Text
@@ -27,7 +53,8 @@ export function CardPreview() {
             <Text className={styles.publishedLabel} color="grey99">
               опубликовано{" "}
             </Text>
-            4 часа назад
+            {formatDistanceToNow(createdAtUTC * 1000, { locale: ruLocale })}{" "}
+            назад
           </Text>
         </div>
         <Text
@@ -37,18 +64,21 @@ export function CardPreview() {
           tabletSize={20}
           className={styles.title}
         >
-          <a href="#post-url" className={styles.postLink}>
-            Следует отметить, что новая модель организационной деятельности,
-            Следует отметить, что новая
+          <a href={postUrl} className={styles.postLink}>
+            {title}
           </a>
         </Text>
       </div>
       <div className={styles.preview}>
-        <img
-          className={styles.previewImg}
-          src="https://cdn.dribbble.com/userupload/4913742/file/original-db72d36e7ee983b3e3a5a606d5a11f4a.jpg?compress=1&resize=1504x1128"
-          alt="post preview cover"
-        />
+        {previewSrc ? (
+          <img
+            className={styles.previewImg}
+            src={previewSrc}
+            alt="post preview cover"
+          />
+        ) : (
+          <Icon name="RedditLogo" />
+        )}
       </div>
     </div>
   );

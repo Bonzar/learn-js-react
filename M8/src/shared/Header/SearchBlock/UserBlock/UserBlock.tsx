@@ -1,14 +1,12 @@
-import React from "react";
+import { useContext } from "react";
 import styles from "./userblock.css";
 import { Icon } from "../../../components/UI/Icon";
 import { Text } from "../../../components/UI/Text";
+import { userDataContext } from "../../../../context/userContext";
 
-interface IUserBlockProp {
-  avatarSrc?: string;
-  username?: string;
-}
+export function UserBlock() {
+  const { username, avatarSrc } = useContext(userDataContext);
 
-export function UserBlock({ avatarSrc, username }: IUserBlockProp) {
   return (
     <a
       className={styles.userBox}

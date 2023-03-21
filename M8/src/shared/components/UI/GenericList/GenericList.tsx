@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface IItem {
+interface IItemBasic {
   id: string;
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent) => void;
@@ -8,10 +8,12 @@ export interface IItem {
   As?: "li" | "button" | "div";
 }
 
-type IItemAnchor = Omit<IItem, "As"> & { As: "a"; href?: string };
+type IItemAnchor = Omit<IItemBasic, "As"> & { As: "a"; href?: string };
+
+export type IGenericListItem = IItemBasic | IItemAnchor;
 
 interface IGenericListProps {
-  list: Array<IItem | IItemAnchor>;
+  list: Array<IGenericListItem>;
 }
 
 const NOOP = () => {};

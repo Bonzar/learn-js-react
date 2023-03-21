@@ -3,7 +3,12 @@ import styles from "./controls.css";
 import { Text } from "../../../components/UI/Text";
 import { Icon } from "../../../components/UI/Icon";
 
-export function Controls() {
+interface IControlsProps {
+  commentsCount: number;
+  upVotesCount: number;
+}
+
+export function Controls({ commentsCount, upVotesCount }: IControlsProps) {
   return (
     <div className={styles.controls}>
       <div className={styles.karmaCounter}>
@@ -16,7 +21,7 @@ export function Controls() {
           size={12}
           color="greyC4"
         >
-          234
+          {upVotesCount}
         </Text>
         <button className={styles.down}>
           <Icon
@@ -32,7 +37,7 @@ export function Controls() {
       <button className={styles.commentsButton}>
         <Icon name="Comments" size={15} color="greyC4" />
         <Text className={styles.commentsNumber} size={12} color="greyC4">
-          234
+          {commentsCount}
         </Text>
       </button>
 

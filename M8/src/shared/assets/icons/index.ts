@@ -8,6 +8,7 @@ import SaveDarkIcon from "./saveDarkIcon.svg";
 import ReportIcon from "./reportIcon.svg";
 import UpVoteIcon from "./upVoteIcon.svg";
 import AvatarIcon from "./avatarIcon.svg";
+import RedditLogoIcon from "./redditLogoIcon.svg";
 
 export {
   UpVoteIcon,
@@ -20,4 +21,5 @@ export {
   SaveDarkIcon,
   ReportIcon,
   AvatarIcon,
+  RedditLogoIcon,
 };

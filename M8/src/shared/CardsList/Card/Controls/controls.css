@@ -12,6 +12,7 @@ svg.down {
     align-items: center;
     justify-content: center;
     flex-flow: column nowrap;
+    max-width: 25px;
   }
 
   .karmaCounter > * + * {

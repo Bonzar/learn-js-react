@@ -28,9 +28,9 @@ export function CardsList() {
           <Card
             postId={id}
             previewSrc={
-              ["spoiler", "default", "self", "nsfw"].includes(thumbnail)
-                ? undefined
-                : thumbnail
+              /^.+\/[\w-]+\.[A-Za-z]{3,4}$/.test(thumbnail)
+                ? thumbnail
+                : undefined
             }
             title={title}
             authorUsername={author}

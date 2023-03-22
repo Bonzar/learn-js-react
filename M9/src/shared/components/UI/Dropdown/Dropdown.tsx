@@ -11,15 +11,13 @@ interface IDropdownProps {
   onClose?: () => void;
 }
 
-const NOOP = () => {};
-
 export function Dropdown({
   button,
   children,
   className,
   isOpen,
-  onOpen = NOOP,
-  onClose = NOOP,
+  onOpen,
+  onClose,
 }: IDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
 
@@ -42,9 +40,9 @@ export function Dropdown({
   useEffect(() => {
     if (isDropdownOpen !== undefined) {
       if (isDropdownOpen) {
-        onOpen();
+        onOpen?.();
       } else {
-        onClose();
+        onClose?.();
       }
     }
   }, [isDropdownOpen]);

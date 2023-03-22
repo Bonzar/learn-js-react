@@ -15,14 +15,11 @@ export type IGenericListItem = IItemBasic | IItemAnchor;
 interface IGenericListProps {
   list: Array<IGenericListItem>;
 }
-
-const NOOP = () => {};
-
 export function GenericList({ list }: IGenericListProps) {
   return (
     <>
       {list.map((props) => {
-        const { As = "div", children, onClick = NOOP, className, id } = props;
+        const { As = "div", children, onClick, className, id } = props;
         return (
           <As
             className={className}

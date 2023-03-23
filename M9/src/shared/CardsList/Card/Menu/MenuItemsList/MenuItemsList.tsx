@@ -1,33 +1,58 @@
 import React from "react";
 import styles from "./menuitemslist.css";
 import { GenericList } from "../../../../components/UI/GenericList";
-import { intersperse, mergeLeft, mergeRight, objOf, pipe } from "ramda";
+import { intersperse, mergeLeft, pipe } from "ramda";
 import { assignRandomId } from "../../../../../utils/js/assignRandomId";
 import { Icon } from "../../../../components/UI/Icon";
 import { Text } from "../../../../components/UI/Text";
 
 const actionsList = [
-  <>
-    <Icon name="Comments" size={16} />
-    <Text color="grey99">Комментарии</Text>
-  </>,
-  <>
-    <Icon name="Share" size={15} />
-    <Text color="grey99">Поделиться</Text>
-  </>,
-  <>
-    <Icon name="Hide" size={14} />
-    <Text color="grey99">Скрыть</Text>
-  </>,
-  <>
-    <Icon name="Save" size={14} />
-    <Text color="grey99">Сохранить</Text>
-  </>,
-  <>
-    <Icon name="Report" size={16} />
-    <Text color="grey99">Пожаловаться</Text>
-  </>,
-].map(pipe(objOf("children"), mergeRight({ className: styles.menuItem })));
+  {
+    children: (
+      <>
+        <Icon name="Comments" size={16} />
+        <Text color="grey99">Комментарии</Text>
+      </>
+    ),
+    className: [styles.menuItem, styles.mobileHideItem].join(" "),
+  },
+  {
+    children: (
+      <>
+        <Icon name="Share" size={15} />
+        <Text color="grey99">Поделиться</Text>
+      </>
+    ),
+    className: [styles.menuItem, styles.mobileHideItem].join(" "),
+  },
+  {
+    children: (
+      <>
+        <Icon name="Hide" size={14} />
+        <Text color="grey99">Скрыть</Text>
+      </>
+    ),
+    className: styles.menuItem,
+  },
+  {
+    children: (
+      <>
+        <Icon name="Save" size={14} />
+        <Text color="grey99">Сохранить</Text>
+      </>
+    ),
+    className: [styles.menuItem, styles.mobileHideItem].join(" "),
+  },
+  {
+    children: (
+      <>
+        <Icon name="Report" size={16} />
+        <Text color="grey99">Пожаловаться</Text>
+      </>
+    ),
+    className: styles.menuItem,
+  },
+];
 
 const actionsListWithDividers = intersperse(
   { children: <hr></hr>, className: styles.divider },

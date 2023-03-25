@@ -5,6 +5,7 @@ import { intersperse, mergeLeft, pipe } from "ramda";
 import { assignRandomId } from "../../../../../utils/js/assignRandomId";
 import { Icon } from "../../../../components/UI/Icon";
 import { Text } from "../../../../components/UI/Text";
+import { Divider } from "../../../../components/UI/Divider";
 
 const actionsList = [
   {
@@ -55,7 +56,7 @@ const actionsList = [
 ];
 
 const actionsListWithDividers = intersperse(
-  { children: <hr></hr>, className: styles.divider },
+  { children: <Divider color="greyEC" />, className: styles.divider },
   actionsList
 );
 

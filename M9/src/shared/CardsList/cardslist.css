@@ -1,3 +1,7 @@
+.cardItem:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+
 @media all and (min-width: 1024px) {
   .cardsList {
     padding: 20px 0;

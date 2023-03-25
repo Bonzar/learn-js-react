@@ -1,0 +1,13 @@
+.metaData {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+@media all and (min-width: 1024px) {
+  .metaData {
+    padding-top: 8px;
+    flex-flow: row-reverse nowrap;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,9 @@
+.publishedLabel {
+  display: none;
+}
+
+@media all and (min-width: 1024px) {
+  .publishedLabel {
+    display: initial;
+  }
+}

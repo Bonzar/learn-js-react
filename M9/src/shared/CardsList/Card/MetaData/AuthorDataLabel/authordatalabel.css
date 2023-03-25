@@ -1,0 +1,25 @@
+.userLink {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px 0 0;
+}
+
+@media all and (min-width: 1024px) {
+  .userLink {
+    padding: 0 0 0 5px;
+  }
+}
+
+.avatar {
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  margin: 0 7px 0 0;
+}
+
+.username {
+  position: relative;
+  z-index: 1;
+}

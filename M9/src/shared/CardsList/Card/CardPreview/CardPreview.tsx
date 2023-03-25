@@ -1,16 +1,18 @@
+import { MouseEvent } from "react";
 import styles from "./cardpreview.css";
 import { Text } from "../../../components/UI/Text";
 import { Icon } from "../../../components/UI/Icon";
-import { formatDistanceToNow } from "date-fns";
-import ruLocale from "date-fns/locale/ru";
+import { MetaData } from "../MetaData";
+import { PublishedAtLabel } from "../MetaData/PublishedAtLabel";
+import { AuthorDataLabel } from "../MetaData/AuthorDataLabel";
 
 interface ICardPreviewProps {
   title: string;
   authorUsername: string;
   createdAtUTC: number;
-  authorAvatarSrc?: string;
   previewSrc?: string;
-  postUrl: string;
+  onPostLinkClick?: (event: MouseEvent) => void;
+  authorAvatarSrc?: string;
 }
 
 export function CardPreview({
@@ -18,45 +20,19 @@ export function CardPreview({
   authorUsername,
   createdAtUTC,
   title,
+  onPostLinkClick,
   previewSrc,
-  postUrl,
 }: ICardPreviewProps) {
   return (
-    <div className={styles.cardPreview}>
+    <>
       <div className={styles.textContent}>
-        <div className={styles.metaData}>
-          <div className={styles.userLink}>
-            {authorAvatarSrc ? (
-              <img
-                className={styles.avatar}
-                src={authorAvatarSrc}
-                alt="avatar"
-              />
-            ) : (
-              <Icon className={styles.avatar} name="Avatar" color="greyD9" />
-            )}
-
-            <a
-              href={`https://www.reddit.com/user/${authorUsername}`}
-              className={styles.username}
-            >
-              <Text color="orange">{authorUsername}</Text>
-            </a>
-          </div>
-          <Text
-            className={styles.createdAt}
-            size={10}
-            tabletSize={14}
-            desktopSize={14}
-            color="grey99"
-          >
-            <Text className={styles.publishedLabel} color="grey99">
-              опубликовано{" "}
-            </Text>
-            {formatDistanceToNow(createdAtUTC * 1000, { locale: ruLocale })}{" "}
-            назад
-          </Text>
-        </div>
+        <MetaData>
+          <AuthorDataLabel
+            username={authorUsername}
+            avatarSrc={authorAvatarSrc}
+          />
+          <PublishedAtLabel createdAtUTC={createdAtUTC} />
+        </MetaData>
         <Text
           As="h2"
           size={16}
@@ -64,12 +40,17 @@ export function CardPreview({
           tabletSize={20}
           className={styles.title}
         >
-          <a href={postUrl} className={styles.postLink}>
+          <a className={styles.postLink} onClick={onPostLinkClick}>
             {title}
           </a>
         </Text>
       </div>
-      <div className={styles.preview}>
+      <div
+        onClick={onPostLinkClick}
+        className={[styles.preview, !previewSrc && styles.previewPlaceholder]
+          .filter(Boolean)
+          .join(" ")}
+      >
         {previewSrc ? (
           <img
             className={styles.previewImg}
@@ -80,6 +61,6 @@ export function CardPreview({
           <Icon name="RedditLogo" />
         )}
       </div>
-    </div>
+    </>
   );
 }

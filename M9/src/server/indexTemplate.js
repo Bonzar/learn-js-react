@@ -9,6 +9,7 @@ export const indexTemplate = (content) => `
 </head>
 <body>
     <div id="react-root">${content}</div>
+    <div id="modal-root"></div>
 </body>
 </html>
 `;

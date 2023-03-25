@@ -1,0 +1,89 @@
+.row {
+  width: 100%;
+  display: block;
+  transform: translateY(-50%);
+}
+
+.column {
+  display: inline-block;
+  align-self: stretch;
+  transform: translateX(-50%);
+}
+
+.th1.row {
+  height: 1px;
+  margin-bottom: -1px;
+}
+
+.th2.row {
+  height: 2px;
+  margin-bottom: -2px;
+}
+
+.th4.row {
+  height: 4px;
+  margin-bottom: -4px;
+}
+
+.th1.column {
+  width: 1px;
+  margin-right: -1px;
+}
+
+.th2.column {
+  width: 2px;
+  margin-right: -2px;
+}
+
+.th4.column {
+  width: 4px;
+  margin-right: -4px;
+}
+
+.black {
+  background-color: var(--black);
+}
+
+.white {
+  background-color: var(--white);
+}
+
+.orange {
+  background-color: var(--orange);
+}
+
+.green {
+  background-color: var(--green);
+}
+
+.white {
+  background-color: var(--white);
+}
+
+.greyF4 {
+  background-color: var(--greyF4);
+}
+
+.greyF3 {
+  background-color: var(--greyF3);
+}
+
+.greyEC {
+  background-color: var(--greyEC);
+}
+
+.greyD9 {
+  background-color: var(--greyD9);
+}
+
+.greyC4 {
+  background-color: var(--greyC4);
+}
+
+.grey99 {
+  background-color: var(--grey99);
+}
+
+.grey66 {
+  background-color: var(--grey66);
+}

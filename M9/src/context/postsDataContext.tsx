@@ -6,14 +6,11 @@ interface IPostData {
     author: string;
     created: number;
     title: string;
-    thumbnail: string;
+    selftext: string;
+    preview?: { images: { source: { url: string } }[] };
     id: string;
     ups: number;
     num_comments: number;
-    sr_detail: {
-      icon_img: string;
-    };
-    url: string;
   };
 }
 

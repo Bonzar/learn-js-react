@@ -1,32 +1,7 @@
-.cardPreview {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.cardPreview > * + * {
-  padding: 13px 0 0;
-}
-
-.cardPreview > *,
 .textContent > * {
   flex: 1 1 100%;
 }
 
-@media all and (min-width: 1024px) {
-  .cardPreview {
-    flex-flow: row nowrap;
-  }
-
-  .cardPreview > * {
-    flex: 0 0;
-  }
-
-  .cardPreview > * + * {
-    padding: 0;
-  }
-}
-
-/* Text Content */
 .textContent {
   display: flex;
   flex-flow: row wrap;
@@ -36,36 +11,16 @@
   padding: 7px 0 0;
 }
 
-.metaData {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-
-.publishedLabel {
-  display: none;
-}
-
 @media all and (min-width: 1024px) {
   .textContent {
     flex-basis: 540px;
     order: 1;
-    margin: 0 0 0 38px;
     flex-flow: column-reverse nowrap;
     justify-content: center;
   }
 
   .textContent > * {
     flex: 0 0;
-  }
-
-  .metaData {
-    flex-flow: row-reverse nowrap;
-    justify-content: flex-end;
-  }
-
-  .publishedLabel {
-    display: inline;
   }
 }
 
@@ -75,42 +30,6 @@
   }
 }
 
-/* User Link */
-
-.userLink {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  height: 20px;
-  padding: 0 6px 0 0;
-}
-
-.avatar {
-  border-radius: 20px;
-  width: 20px;
-  height: 20px;
-  margin: 0 7px 0 0;
-}
-
-.username {
-  position: relative;
-  z-index: 1;
-}
-
-@media all and (min-width: 1024px) {
-  .userLink {
-    padding: 0 0 0 5px;
-  }
-}
-
-@media all and (min-width: 1540px) {
-  .userLink:hover a {
-    text-decoration: underline;
-  }
-}
-
-/* Title */
-
 .postLink {
   overflow: hidden;
   -webkit-line-clamp: 2;
@@ -118,35 +37,29 @@
   display: -webkit-box;
 }
 
-.postLink::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.postLink:hover,
+.postLink:focus-within {
+  color: var(--orange);
+  cursor: pointer;
 }
 
 @media all and (min-width: 1024px) {
-  .textContent {
-    flex-basis: 540px;
-    order: 1;
-    margin: 0 0 0 38px;
-    flex-flow: column-reverse nowrap;
-    justify-content: center;
-  }
-
-  .textContent > * {
-    flex: 0 0;
-  }
-
-  .title {
-    padding: 0 0 10px 0;
+  .metaData {
+    padding-top: 10px;
   }
 
   .postLink {
     -webkit-line-clamp: 1;
   }
+}
+
+.preview:hover,
+.preview:focus-within {
+  cursor: pointer;
+}
+
+.previewPlaceholder {
+  display: none;
 }
 
 .preview {
@@ -161,9 +74,13 @@
 }
 
 @media all and (min-width: 1024px) {
+  .previewPlaceholder {
+    display: flex;
+  }
+
   .preview {
     flex-basis: 190px;
     order: 0;
-    margin: 0;
+    margin: 0 38px 0 0;
   }
 }

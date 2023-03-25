@@ -1,0 +1,97 @@
+.post {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  padding: 20px 24px;
+  max-height: 80%;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 1000;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.post > :not(:last-child) {
+  margin-bottom: 20px;
+}
+
+@media all and (min-width: 1024px) {
+  .post {
+    padding: 50px 60px 35px;
+    max-width: 960px;
+    min-height: 155px;
+  }
+}
+
+.content {
+  overflow-y: auto;
+  word-break: break-word;
+  line-height: 24px;
+}
+
+.close {
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  margin: -24px;
+  color: #000;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  grid-template-columns: auto 1fr;
+}
+
+@media all and (min-width: 1024px) {
+  .header {
+    justify-content: start;
+  }
+}
+
+.textContent > * {
+  flex: 1 1 100%;
+}
+
+.textContent {
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: 20px;
+}
+
+.textContent > * + * {
+  padding: 7px 0 0;
+}
+
+@media all and (min-width: 1024px) {
+  .textContent {
+    order: 1;
+    flex-flow: column-reverse nowrap;
+    justify-content: center;
+    margin-right: unset;
+    padding-left: 20px;
+  }
+
+  .textContent > * {
+    flex: 0 0;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .title {
+    order: 1;
+  }
+}
+
+.preview {
+  max-height: 70vh;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

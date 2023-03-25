@@ -13,11 +13,9 @@
 }
 
 .avatarBox {
-  width: 60px;
-  height: 60px;
-  padding: 5px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
-  box-shadow: none;
 }
 
 .avatarImage {
@@ -38,5 +36,11 @@
 @media all and (min-width: 1024px) {
   .username {
     display: flex;
+  }
+
+  .avatarBox {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
   }
 }

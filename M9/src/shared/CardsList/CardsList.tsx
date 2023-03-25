@@ -14,31 +14,32 @@ export function CardsList() {
         id,
         created,
         ups,
-        url,
         author,
-        sr_detail: { icon_img },
-        thumbnail,
+        preview,
         num_comments,
         title,
+        selftext,
       } = post.data;
 
       return {
         id,
+        className: styles.cardItem,
         children: (
           <Card
             postId={id}
             previewSrc={
-              /^.+\/[\w-]+\.[A-Za-z]{3,4}$/.test(thumbnail)
-                ? thumbnail
-                : undefined
+              preview &&
+              preview.images[0].source.url
+                .replace("amp;s", "s")
+                .replace("amp;", "")
+                .replace("amp;", "")
             }
             title={title}
             authorUsername={author}
-            authorAvatarSrc={icon_img}
             createdAtUTC={created}
             commentsCount={num_comments}
             upVotesCount={ups}
-            postUrl={url}
+            content={selftext}
           />
         ),
       };

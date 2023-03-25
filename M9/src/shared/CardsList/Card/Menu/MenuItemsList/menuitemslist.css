@@ -18,14 +18,11 @@
   margin-left: 5px;
 }
 
-.divider {
-  height: 1px;
-  margin-bottom: -1px;
-  width: 100%;
-  background-color: var(--greyEC);
+.mobileHideItem {
+  display: none;
 }
 
-.mobileHideItem {
+.mobileHideItem + .divider {
   display: none;
 }
 

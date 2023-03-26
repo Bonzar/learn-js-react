@@ -1,0 +1,70 @@
+.commentBlock {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.indent {
+  flex: 0 0 19px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding-bottom: 3px;
+}
+
+.upVote {
+  margin-bottom: 10px;
+  flex: 0 0 auto;
+}
+
+.comment {
+  padding-left: 20px;
+  padding-top: 5px;
+  min-width: 300px;
+}
+
+.downVote {
+  margin-bottom: 20px;
+  flex: 0 0 auto;
+}
+
+.publishedAtLabel {
+  font-size: 14px;
+}
+
+.content {
+  padding-top: 10px;
+  word-break: break-word;
+  line-height: 22px;
+}
+
+.actions {
+  padding-top: 15px;
+  display: flex;
+}
+
+.actions:not(:last-child) {
+  margin-bottom: 35px;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+}
+
+.actionText {
+  padding-left: 6px;
+}
+
+.actionText:not(.actionReplyText) {
+  display: none;
+}
+
+@media all and (min-width: 1024px) {
+  .actionText:not(.actionReplyText) {
+    display: revert;
+  }
+}
+
+.actionBtn:not(:last-of-type) {
+  margin-right: 27px;
+}

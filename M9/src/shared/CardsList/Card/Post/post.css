@@ -95,3 +95,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.notLoggedInBanner {
+  text-align: center;
+}
+
+.notLoggedInLink {
+  color: var(--orange);
+}

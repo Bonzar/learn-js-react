@@ -84,3 +84,9 @@
     margin: 0 38px 0 0;
   }
 }
+
+@media all and (min-width: 1024px) {
+  .title {
+    margin-bottom: 8px;
+  }
+}

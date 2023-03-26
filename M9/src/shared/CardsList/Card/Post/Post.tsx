@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import styles from "./post.css";
 import { Text } from "../../../components/UI/Text";
 import { KarmaCounter } from "../KarmaCounter";
@@ -6,6 +7,8 @@ import { PublishedAtLabel } from "../MetaData/PublishedAtLabel";
 import { AuthorDataLabel } from "../MetaData/AuthorDataLabel";
 import { MetaData } from "../MetaData";
 import { CommentForm } from "./CommentForm";
+import { CommentsList } from "./CommentsList";
+import { userDataContext } from "../../../../context/userContext";
 
 interface IPostProps {
   title: string;
@@ -16,12 +19,12 @@ interface IPostProps {
   createdAtUTC: number;
   previewSrc?: string;
   authorAvatarSrc?: string;
-  onOutsideClick?: (event: MouseEvent) => void;
 }
 
 export function Post(props: IPostProps) {
   const {
     title,
+    postId,
     content,
     upVotesCount,
     authorAvatarSrc,
@@ -29,6 +32,8 @@ export function Post(props: IPostProps) {
     createdAtUTC,
     previewSrc,
   } = props;
+
+  const { username: loggedUsername } = useContext(userDataContext);
 
   return (
     <article className={styles.post}>
@@ -69,7 +74,25 @@ export function Post(props: IPostProps) {
 
       {(content || previewSrc) && <Divider color="greyD9" />}
 
-      <CommentForm username={authorUsername} />
+      {!loggedUsername && (
+        <Text As="div" className={styles.notLoggedInBanner} size={16}>
+          <a
+            className={styles.notLoggedInLink}
+            href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=http://localhost:3000/auth&duration=permanent&scope=read,submit,identity`}
+          >
+            Войдите
+          </a>
+          , чтобы просматривать и оставлять комментарии.
+        </Text>
+      )}
+
+      {loggedUsername && (
+        <>
+          <CommentForm username={loggedUsername} />
+          <Divider color="greyD9" />
+          <CommentsList postId={postId} />
+        </>
+      )}
     </article>
   );
 }

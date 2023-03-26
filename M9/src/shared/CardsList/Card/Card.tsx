@@ -76,7 +76,6 @@ export function Card(props: ICardProps) {
             <Post
               postId={postId}
               title={title}
-              onOutsideClick={handleClosePost}
               content={content}
               upVotesCount={upVotesCount}
               authorAvatarSrc={authorAvatarSrc}

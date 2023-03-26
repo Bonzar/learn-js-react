@@ -6,9 +6,13 @@ import ruLocale from "date-fns/locale/ru";
 
 interface IPublishedAtLabelProps {
   createdAtUTC: number;
+  withPublishedLabel?: boolean;
 }
 
-export function PublishedAtLabel({ createdAtUTC }: IPublishedAtLabelProps) {
+export function PublishedAtLabel({
+  createdAtUTC,
+  withPublishedLabel = true,
+}: IPublishedAtLabelProps) {
   const createdAtName = formatDistanceToNow(createdAtUTC * 1000, {
     locale: ruLocale,
     addSuffix: true,
@@ -22,9 +26,11 @@ export function PublishedAtLabel({ createdAtUTC }: IPublishedAtLabelProps) {
       desktopSize={14}
       color="grey99"
     >
-      <Text className={styles.publishedLabel} color="grey99">
-        опубликовано{" "}
-      </Text>
+      {withPublishedLabel && (
+        <Text className={styles.publishedLabel} color="grey99">
+          опубликовано{" "}
+        </Text>
+      )}
       {createdAtName}
     </Text>
   );

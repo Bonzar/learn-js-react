@@ -31,14 +31,8 @@ export function KarmaCounter({
       >
         {upVotesCount}
       </Text>
-      <button>
-        <Icon
-          name="UpVote"
-          className={styles.down}
-          color="greyC4"
-          width={19}
-          height={10}
-        />
+      <button className={styles.down}>
+        <Icon name="DownVote" color="greyC4" width={19} height={10} />
       </button>
     </div>
   );

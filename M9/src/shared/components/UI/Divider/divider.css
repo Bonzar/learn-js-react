@@ -5,8 +5,8 @@
 }
 
 .column {
+  height: 100%;
   display: inline-block;
-  align-self: stretch;
   transform: translateX(-50%);
 }
 
@@ -18,6 +18,11 @@
 .th2.row {
   height: 2px;
   margin-bottom: -2px;
+}
+
+.th3.row {
+  height: 3px;
+  margin-bottom: -3px;
 }
 
 .th4.row {
@@ -33,6 +38,11 @@
 .th2.column {
   width: 2px;
   margin-right: -2px;
+}
+
+.th3.column {
+  width: 3px;
+  margin-right: -3px;
 }
 
 .th4.column {

@@ -4,7 +4,7 @@ import { TColors } from "../Text";
 
 interface IDividerProps {
   color?: TColors;
-  thickness?: 1 | 2 | 4;
+  thickness?: 1 | 2 | 3 | 4;
   direction?: "row" | "column";
 }
 

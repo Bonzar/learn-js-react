@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, MouseEvent } from "react";
 import styles from "./post.css";
 import { Text } from "../../../components/UI/Text";
 import { KarmaCounter } from "../KarmaCounter";
@@ -9,6 +9,7 @@ import { MetaData } from "../MetaData";
 import { CommentForm } from "./CommentForm";
 import { CommentsList } from "./CommentsList";
 import { userDataContext } from "../../../../context/userContext";
+import { Icon } from "../../../components/UI/Icon";
 
 interface IPostProps {
   title: string;
@@ -19,6 +20,7 @@ interface IPostProps {
   createdAtUTC: number;
   previewSrc?: string;
   authorAvatarSrc?: string;
+  onCloseClick?: (event: MouseEvent) => void;
 }
 
 export function Post(props: IPostProps) {
@@ -31,12 +33,17 @@ export function Post(props: IPostProps) {
     authorUsername,
     createdAtUTC,
     previewSrc,
+    onCloseClick,
   } = props;
 
   const { username: loggedUsername } = useContext(userDataContext);
 
   return (
     <article className={styles.post}>
+      <button className={styles.closeBtn} onClick={onCloseClick}>
+        <Icon name="Close" color="greyAD" />
+      </button>
+
       <header className={styles.header}>
         <div className={styles.textContent}>
           <Text
@@ -62,37 +69,39 @@ export function Post(props: IPostProps) {
         />
       </header>
 
-      {content && (
-        <Text className={styles.content} As="p" size={14}>
-          {content}
-        </Text>
-      )}
+      <div className={styles.content}>
+        {content && (
+          <Text className={styles.commentText} As="p" size={14}>
+            {content}
+          </Text>
+        )}
 
-      {previewSrc && (
-        <img className={styles.preview} src={previewSrc} alt="Post cover" />
-      )}
+        {previewSrc && (
+          <img className={styles.preview} src={previewSrc} alt="Post cover" />
+        )}
 
-      {(content || previewSrc) && <Divider color="greyD9" />}
+        {(content || previewSrc) && <Divider color="greyD9" />}
 
-      {!loggedUsername && (
-        <Text As="div" className={styles.notLoggedInBanner} size={16}>
-          <a
-            className={styles.notLoggedInLink}
-            href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=http://localhost:3000/auth&duration=permanent&scope=read,submit,identity`}
-          >
-            Войдите
-          </a>
-          , чтобы просматривать и оставлять комментарии.
-        </Text>
-      )}
+        {!loggedUsername && (
+          <Text As="div" className={styles.notLoggedInBanner} size={16}>
+            <a
+              className={styles.notLoggedInLink}
+              href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&state=random_string&redirect_uri=http://localhost:3000/auth&duration=permanent&scope=read,submit,identity`}
+            >
+              Войдите
+            </a>
+            , чтобы просматривать и оставлять комментарии.
+          </Text>
+        )}
 
-      {loggedUsername && (
-        <>
-          <CommentForm username={loggedUsername} />
-          <Divider color="greyD9" />
-          <CommentsList postId={postId} />
-        </>
-      )}
+        {loggedUsername && (
+          <>
+            <CommentForm username={loggedUsername} />
+            <Divider color="greyD9" />
+            <CommentsList postId={postId} />
+          </>
+        )}
+      </div>
     </article>
   );
 }

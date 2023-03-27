@@ -1,34 +1,61 @@
 .post {
-  overflow-x: hidden;
-  overflow-y: auto;
   background: #ffffff;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.15);
   border-radius: 7px;
-  padding: 20px 24px;
-  max-height: 80%;
+  padding: 30px 12px;
   margin: 0 auto;
   position: fixed;
   z-index: 1000;
-  top: 10%;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-}
-
-.post > :not(:last-child) {
-  margin-bottom: 20px;
+  transform: translate(-50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 @media all and (min-width: 1024px) {
   .post {
-    padding: 50px 60px 35px;
+    padding: 50px 30px 35px;
+    max-height: 80%;
+    width: 90%;
     max-width: 960px;
     min-height: 155px;
+    top: 10%;
   }
 }
 
 .content {
-  overflow-y: auto;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  height: 100%;
+  padding-inline: 12px;
+}
+
+.content > :not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.content::-webkit-scrollbar {
+  background-color: var(--greyEC);
+  border-radius: 30px;
+  width: 7px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  height: 341px;
+  border-radius: 30px;
+  background-color: var(--greyD9);
+}
+
+@media all and (min-width: 1024px) {
+  .content {
+    padding-inline: 30px;
+  }
+}
+
+.commentText {
   word-break: break-word;
   line-height: 24px;
 }
@@ -45,11 +72,14 @@
   display: flex;
   justify-content: space-between;
   grid-template-columns: auto 1fr;
+  padding-inline: 12px;
+  margin-bottom: 20px;
 }
 
 @media all and (min-width: 1024px) {
   .header {
     justify-content: start;
+    padding-inline: 19px;
   }
 }
 
@@ -102,4 +132,21 @@
 
 .notLoggedInLink {
   color: var(--orange);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+}
+
+@media all and (min-width: 1024px) {
+  .closeBtn {
+    width: 21px;
+    height: 21px;
+    top: 30px;
+    right: 20px;
+  }
 }

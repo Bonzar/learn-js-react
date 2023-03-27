@@ -1,5 +1,6 @@
 .commentsList {
   overflow: auto;
+  scroll-snap-type: x mandatory;
 }
 
 .commentsList li:not(:last-of-type) {

@@ -10,6 +10,7 @@ import UpVoteIcon from "./upVoteIcon.svg";
 import DownVoteIcon from "./downVoteIcon.svg";
 import AvatarIcon from "./avatarIcon.svg";
 import RedditLogoIcon from "./redditLogoIcon.svg";
+import CloseIcon from "./closeIcon.svg";
 
 export {
   UpVoteIcon,
@@ -24,4 +25,5 @@ export {
   ReportIcon,
   AvatarIcon,
   RedditLogoIcon,
+  CloseIcon,
 };

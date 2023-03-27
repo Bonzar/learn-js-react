@@ -14,7 +14,8 @@ export type TColors =
   | "greyD9"
   | "greyC4"
   | "grey99"
-  | "grey66";
+  | "grey66"
+  | "greyAD";
 
 interface ITextProps {
   As?: "span" | "h1" | "h2" | "h3" | "h4" | "p" | "div";

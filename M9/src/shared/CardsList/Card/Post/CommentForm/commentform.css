@@ -16,13 +16,18 @@
   padding: 16px 18px;
 }
 
-.commentInput::placeholder {
+.commentInputPlaceholder {
+  position: absolute;
+  top: 16px;
+  left: 18px;
   color: var(--orange);
+  pointer-events: none;
 }
 
 .commentForm {
   display: flex;
   flex-flow: row wrap;
+  position: relative;
 }
 
 .commentActions {

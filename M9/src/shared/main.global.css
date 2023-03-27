@@ -12,6 +12,7 @@
   --greyE5: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
   --greyD9: hsl(0, 0%, calc(var(--whiteLightness) - 15%));
   --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --greyAD: hsl(0, 0%, calc(var(--whiteLightness) - 32%));
   --grey99: hsl(0, 0%, calc(var(--whiteLightness) - 40%));
   --grey66: hsl(0, 0%, calc(var(--whiteLightness) - 60%));
 }

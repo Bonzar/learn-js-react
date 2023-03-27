@@ -4,6 +4,7 @@ import { useToken } from "../../../../../hooks/useToken";
 import { CommentItem } from "./CommentItem";
 import { GenericList } from "../../../../components/UI/GenericList";
 import axios from "axios";
+import { Text } from "../../../../components/UI/Text";
 
 interface ICommentsListProps {
   postId: string;
@@ -46,19 +47,25 @@ interface IPostComments {
 
 export function CommentsList({ postId }: ICommentsListProps) {
   const token = useToken();
-  const [comments, setComments] = useState<TComment[] | null>(null);
+  const [comments, setComments] = useState<TComment[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">(
+    "loading"
+  );
 
   useEffect(() => {
+    setStatus("loading");
     axios
       .get(`https://oauth.reddit.com/comments/${postId}.json`, {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }: IPostComments) => {
-        console.log({ data });
-
         setComments(data[1].data.children);
+        setStatus("ready");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setStatus("error");
+        console.error(error);
+      });
   }, []);
 
   const unpackComments = (comments: TComment[]) => {
@@ -89,8 +96,16 @@ export function CommentsList({ postId }: ICommentsListProps) {
   };
 
   return (
-    comments && (
-      <ul className={styles.commentsList}>{unpackComments(comments)}</ul>
-    )
+    <>
+      {status === "loading" && <Text>Загрузка комментариев ... </Text>}
+      {status === "error" && <Text>Ошибка загрузки комментариев 🫣</Text>}
+      {status === "ready" && comments.length === 0 && (
+        <Text>Здесь пока пусто 🫣</Text>
+      )}
+
+      {status === "ready" && comments.length > 0 && (
+        <ul className={styles.commentsList}>{unpackComments(comments)}</ul>
+      )}
+    </>
   );
 }

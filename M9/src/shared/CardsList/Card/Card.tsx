@@ -82,6 +82,7 @@ export function Card(props: ICardProps) {
               authorUsername={authorUsername}
               createdAtUTC={createdAtUTC}
               previewSrc={previewSrc}
+              onCloseClick={handleClosePost}
             />
           </Modal>
         )}

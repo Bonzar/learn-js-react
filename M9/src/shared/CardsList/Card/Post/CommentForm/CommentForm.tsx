@@ -29,8 +29,14 @@ export function CommentForm({ username }: ICommentFormProps) {
         className={styles.commentInput}
         value={comment}
         onChange={handleChange}
-        placeholder={`${toCamelCase(username)}, оставьте ваш комментарий`}
       />
+      {!comment && (
+        <Text className={styles.commentInputPlaceholder} size={16}>
+          {`${toCamelCase(username)}`}
+          <Text size={16}>, оставьте ваш комментарий</Text>
+        </Text>
+      )}
+
       <fieldset className={styles.commentActions}></fieldset>
       <button className={styles.submit} type="submit">
         <Text bold color="white">

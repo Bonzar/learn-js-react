@@ -1,8 +1,8 @@
-import React from "react";
-
-export function stopPropagation<T extends (arg: any) => void>(fn: T) {
-  return <E extends React.SyntheticEvent<any>>(event: E) => {
+export function stopPropagation<E extends React.SyntheticEvent>(
+  eventCallback: (event: E) => void
+) {
+  return (event: E) => {
     event.stopPropagation();
-    fn(event);
+    eventCallback(event);
   };
 }

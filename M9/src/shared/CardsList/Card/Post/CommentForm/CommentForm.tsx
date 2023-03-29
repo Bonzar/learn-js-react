@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./commentform.css";
 import { preventDefault } from "../../../../../utils/react/preventDefault";
 import { Text } from "../../../../components/UI/Text";
 import { toCamelCase } from "../../../../../utils/js/toCamelCase";
 import { usePostCommentContext } from "../../../../../context/postCommentContext";
+import { userDataContext } from "../../../../../context/userContext";
 
 interface ICommentFormProps {
-  username: string;
+  replyId: string;
 }
 
-export function CommentForm({ username }: ICommentFormProps) {
+export function CommentForm({ replyId }: ICommentFormProps) {
   const { comment, setComment } = usePostCommentContext();
+  const { username } = useContext(userDataContext);
+
+  if (!username) {
+    return null;
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.currentTarget.value);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    console.log(event.target);
+  const handleSubmit = () => {
+    console.log(`Replied to ${replyId} with ${comment}`);
+    setComment("");
   };
 
   return (

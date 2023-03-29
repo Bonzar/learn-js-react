@@ -22,6 +22,7 @@
   padding-left: 20px;
   padding-top: 5px;
   min-width: 300px;
+  width: 100%;
 }
 
 .downVote {
@@ -44,7 +45,8 @@
   display: flex;
 }
 
-.actions:not(:last-child) {
+.actions:not(:last-child),
+.replyForm:not(:last-child) {
   margin-bottom: 35px;
 }
 

@@ -76,20 +76,26 @@ export function CommentsList({ postId }: ICommentsListProps) {
     return (
       commentWithoutMore.length > 0 && (
         <GenericList
-          list={commentWithoutMore.map((item) => ({
-            children: (
-              <CommentItem
-                authorUsername={item.data.author}
-                content={item.data.body}
-                createdAtUTC={item.data.created_utc}
-              >
-                {item.data.replies &&
-                  unpackComments(item.data.replies.data.children)}
-              </CommentItem>
-            ),
-            As: "li" as const,
-            id: item.data.id,
-          }))}
+          list={commentWithoutMore.map((item) => {
+            const {
+              data: { author, replies, body, created_utc, id },
+            } = item;
+
+            return {
+              children: (
+                <CommentItem
+                  authorUsername={author}
+                  content={body}
+                  createdAtUTC={created_utc}
+                  commentId={id}
+                >
+                  {replies && unpackComments(replies.data.children)}
+                </CommentItem>
+              ),
+              As: "li" as const,
+              id: id,
+            };
+          })}
         />
       )
     );

@@ -96,7 +96,7 @@ export function Post(props: IPostProps) {
 
         {loggedUsername && (
           <>
-            <CommentForm username={loggedUsername} />
+            <CommentForm replyId={postId} />
             <Divider color="greyD9" />
             <CommentsList postId={postId} />
           </>

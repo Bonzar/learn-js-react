@@ -9,8 +9,10 @@ import { PublishedAtLabel } from "../../../MetaData/PublishedAtLabel";
 import { tokenContext } from "../../../../../../context/tokenContext";
 import axios from "axios";
 import { decodeRedditImageUrl } from "../../../../../../utils/js/decodeRedditImageUrl";
+import { CommentForm } from "../../CommentForm";
 
 interface ICommentItemProps {
+  commentId: string;
   authorUsername: string;
   content: string;
   createdAtUTC: number;
@@ -18,12 +20,14 @@ interface ICommentItemProps {
 }
 
 export function CommentItem({
+  commentId,
   children,
   authorUsername,
   content,
   createdAtUTC,
 }: ICommentItemProps) {
   const [authorAvatarSrc, setAuthorAvatarSrc] = useState("");
+  const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
   const token = useContext(tokenContext);
 
   useEffect(() => {
@@ -71,7 +75,10 @@ export function CommentItem({
           {content}
         </Text>
         <div className={styles.actions}>
-          <button className={styles.actionBtn}>
+          <button
+            className={styles.actionBtn}
+            onClick={() => setIsCommentFormOpened(!isCommentFormOpened)}
+          >
             <Icon name="Comments" color="grey99" size={16} />
             <Text
               className={[styles.actionText, styles.actionReplyText].join(" ")}
@@ -93,6 +100,11 @@ export function CommentItem({
             </Text>
           </button>
         </div>
+        {isCommentFormOpened && (
+          <div className={styles.replyForm}>
+            <CommentForm replyId={commentId} />
+          </div>
+        )}
         {children && <ul>{children}</ul>}
       </div>
     </div>

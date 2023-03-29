@@ -20,13 +20,12 @@
 }
 
 .dropdown {
-  position: absolute;
-  right: 0;
+  position: relative;
+  transform: translateX(calc(-50% + 10px));
   top: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   background-color: var(--white);
-  z-index: 1;
 }
 
 .closeButton {
@@ -62,9 +61,8 @@
   }
 
   .dropdown {
-    right: 50%;
-    transform: translateX(50%);
     top: 19px;
+    transform: unset;
   }
 
   .closeButton {

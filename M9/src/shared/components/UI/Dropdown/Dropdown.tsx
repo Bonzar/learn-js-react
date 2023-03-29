@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import styles from "./dropdown.css";
 import { stopPropagation } from "../../../../utils/react/stopPropagation";
+import { Modal } from "../Modal";
+import { getCoords } from "../../../../utils/js/getCoords";
+
+interface IDropdownButtonProps {
+  onClick: (event: React.MouseEvent) => void;
+  setButtonRef: (a: HTMLElement | null) => void;
+}
 
 interface IDropdownProps {
   className?: string;
-  button: React.ReactNode;
-  children: React.ReactNode;
+  button: (props: IDropdownButtonProps) => React.ReactElement;
+  children: ReactNode;
   isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
@@ -14,27 +21,41 @@ interface IDropdownProps {
 export function Dropdown({
   button,
   children,
-  className,
   isOpen,
   onOpen,
   onClose,
 }: IDropdownProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+
+  const [anchorButtonEl, setAnchorButtonEl] = useState<HTMLElement | null>(
+    null
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setIsDropdownOpen(isOpen), [isOpen]);
 
   useEffect(() => {
-    const handleBodyClick = () => {
-      setIsDropdownOpen(false);
-    };
-
-    if (isDropdownOpen) {
-      document.body.addEventListener("click", handleBodyClick);
-    } else {
-      document.body.removeEventListener("click", handleBodyClick);
+    if (!isDropdownOpen) {
+      return;
     }
 
-    return () => document.body.removeEventListener("click", handleBodyClick);
+    const dropdownEl = dropdownRef.current;
+
+    if (!anchorButtonEl || !dropdownEl) {
+      return;
+    }
+
+    const dropdownCoors = getCoords(dropdownEl);
+    const buttonCoors = getCoords(anchorButtonEl);
+
+    const TOP_SPACE = 5;
+    const RIGHT_SPACE = 5;
+
+    setPosition({
+      top: buttonCoors.top + buttonCoors.height + TOP_SPACE,
+      left: buttonCoors.left + buttonCoors.width / 2 - dropdownCoors.width / 2, // +  RIGHT_SPACE,
+    });
   }, [isDropdownOpen]);
 
   useEffect(() => {
@@ -47,32 +68,30 @@ export function Dropdown({
     }
   }, [isDropdownOpen]);
 
-  const handleOpen = () => {
+  const handleBtnClick = () => {
     if (isOpen === undefined) {
       setIsDropdownOpen(!isDropdownOpen);
     }
   };
 
   return (
-    <div
-      data-testid="dropdown"
-      className={[styles.container, className].filter(Boolean).join(" ")}
-    >
-      <div onClick={stopPropagation(handleOpen)}>{button}</div>
+    <>
+      {button({
+        onClick: stopPropagation(handleBtnClick),
+        setButtonRef: (el: HTMLElement | null) => setAnchorButtonEl(el),
+      })}
       {isDropdownOpen && (
-        <div data-testid="list-container" className={styles.listContainer}>
+        <Modal onOutsideClick={stopPropagation(() => setIsDropdownOpen(false))}>
           <div
-            data-testid="list"
-            className={styles.list}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsDropdownOpen(false);
-            }}
+            className={styles.dropdown}
+            onClick={stopPropagation(() => setIsDropdownOpen(false))}
+            style={{ ...position }}
+            ref={dropdownRef}
           >
             {children}
           </div>
-        </div>
+        </Modal>
       )}
-    </div>
+    </>
   );
 }

@@ -1,4 +1,6 @@
-export function preventDefault<E extends React.SyntheticEvent>(
+import { SyntheticEvent } from "react";
+
+export function preventDefault<E extends SyntheticEvent | Event>(
   eventCallback: (event: E) => void
 ) {
   return (event: E) => {

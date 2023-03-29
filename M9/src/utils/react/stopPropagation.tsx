@@ -1,4 +1,6 @@
-export function stopPropagation<E extends React.SyntheticEvent>(
+import { SyntheticEvent } from "react";
+
+export function stopPropagation<E extends SyntheticEvent | Event>(
   eventCallback: (event: E) => void
 ) {
   return (event: E) => {

@@ -30,6 +30,8 @@ export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
   };
 
   const handleSubmit = () => {
+    if (!comment.trim()) return;
+
     console.log(`Replied to ${replyId} with ${comment}`);
     onSuccessReply?.({
       commentId: generateRandomString(),

@@ -8,7 +8,7 @@ import { CardPreview } from "./CardPreview";
 import { Modal } from "../../components/UI/Modal";
 import { tokenContext } from "../../../context/tokenContext";
 import { decodeRedditImageUrl } from "../../../utils/js/decodeRedditImageUrl";
-import { PostCommentProvider } from "../../../context/postCommentContext";
+import { CommentProvider } from "../../../context/commentContext";
 
 interface ICardProps {
   postId: string;
@@ -58,7 +58,7 @@ export function Card(props: ICardProps) {
   }, []);
 
   return (
-    <PostCommentProvider value={{ comment, setComment }}>
+    <CommentProvider value={{ comment, setComment }}>
       <div className={styles.card}>
         <CardPreview
           authorAvatarSrc={authorAvatarSrc}
@@ -87,6 +87,6 @@ export function Card(props: ICardProps) {
           </Modal>
         )}
       </div>
-    </PostCommentProvider>
+    </CommentProvider>
   );
 }

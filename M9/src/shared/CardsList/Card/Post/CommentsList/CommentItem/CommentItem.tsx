@@ -10,8 +10,10 @@ import { tokenContext } from "../../../../../../context/tokenContext";
 import axios from "axios";
 import { decodeRedditImageUrl } from "../../../../../../utils/js/decodeRedditImageUrl";
 import { CommentForm } from "../../CommentForm";
+import { GenericList } from "../../../../../components/UI/GenericList";
+import { CommentProvider } from "../../../../../../context/commentContext";
 
-interface ICommentItemProps {
+export interface ICommentItemProps {
   commentId: string;
   authorUsername: string;
   content: string;
@@ -28,6 +30,8 @@ export function CommentItem({
 }: ICommentItemProps) {
   const [authorAvatarSrc, setAuthorAvatarSrc] = useState("");
   const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
+  const [comment, setComment] = useState("");
+  const [ownComments, setOwnComments] = useState<ICommentItemProps[]>([]);
   const token = useContext(tokenContext);
 
   useEffect(() => {
@@ -102,10 +106,37 @@ export function CommentItem({
         </div>
         {isCommentFormOpened && (
           <div className={styles.replyForm}>
-            <CommentForm replyId={commentId} />
+            <CommentProvider value={{ comment, setComment }}>
+              <CommentForm
+                replyId={commentId}
+                onSuccessReply={(item) => {
+                  setIsCommentFormOpened(false);
+                  setOwnComments([item].concat(ownComments));
+                }}
+              />
+            </CommentProvider>
           </div>
         )}
-        {children && <ul>{children}</ul>}
+        {(children || ownComments.length > 0) && (
+          <ul>
+            {
+              <>
+                {ownComments.length > 0 && (
+                  <GenericList
+                    list={ownComments.map((item) => {
+                      return {
+                        children: <CommentItem {...item} />,
+                        As: "li" as const,
+                        id: item.commentId,
+                      };
+                    })}
+                  />
+                )}
+                {children && children}
+              </>
+            }
+          </ul>
+        )}
       </div>
     </div>
   );

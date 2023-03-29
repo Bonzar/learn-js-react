@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./commentslist.css";
 import { useToken } from "../../../../../hooks/useToken";
-import { CommentItem } from "./CommentItem";
+import { CommentItem, ICommentItemProps } from "./CommentItem";
 import { GenericList } from "../../../../components/UI/GenericList";
 import axios from "axios";
 import { Text } from "../../../../components/UI/Text";
+import { CommentForm } from "../CommentForm";
+import { Divider } from "../../../../components/UI/Divider";
 
 interface ICommentsListProps {
   postId: string;
@@ -51,6 +53,7 @@ export function CommentsList({ postId }: ICommentsListProps) {
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading"
   );
+  const [ownComments, setOwnComments] = useState<ICommentItemProps[]>([]);
 
   useEffect(() => {
     setStatus("loading");
@@ -103,15 +106,39 @@ export function CommentsList({ postId }: ICommentsListProps) {
 
   return (
     <>
+      <CommentForm
+        replyId={postId}
+        onSuccessReply={(item) => {
+          setStatus("ready");
+          setOwnComments([item].concat(ownComments));
+        }}
+      />
+
+      <Divider color="greyD9" />
+
       {status === "loading" && <Text>Загрузка комментариев ... </Text>}
       {status === "error" && <Text>Ошибка загрузки комментариев 🫣</Text>}
-      {status === "ready" && comments.length === 0 && (
-        <Text>Здесь пока пусто 🫣</Text>
-      )}
+      {status === "ready" &&
+        comments.length === 0 &&
+        ownComments.length === 0 && <Text>Здесь пока пусто 🫣</Text>}
 
-      {status === "ready" && comments.length > 0 && (
-        <ul className={styles.commentsList}>{unpackComments(comments)}</ul>
-      )}
+      {status === "ready" &&
+        (comments.length > 0 || ownComments.length > 0) && (
+          <ul className={styles.commentsList}>
+            {ownComments.length > 0 && (
+              <GenericList
+                list={ownComments.map((item) => {
+                  return {
+                    children: <CommentItem {...item} />,
+                    As: "li" as const,
+                    id: item.commentId,
+                  };
+                })}
+              />
+            )}
+            {comments.length > 0 && unpackComments(comments)}
+          </ul>
+        )}
     </>
   );
 }

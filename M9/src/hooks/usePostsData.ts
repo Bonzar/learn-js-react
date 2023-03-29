@@ -26,7 +26,6 @@ export const usePostsData = () => {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }: { data: { data: { children: IPostData[] } } }) => {
-        console.log({ posts: data.data.children });
         setPostsData(data.data.children);
       })
       .catch(console.error);

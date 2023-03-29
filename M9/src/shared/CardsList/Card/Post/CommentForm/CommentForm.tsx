@@ -3,15 +3,22 @@ import styles from "./commentform.css";
 import { preventDefault } from "../../../../../utils/react/preventDefault";
 import { Text } from "../../../../components/UI/Text";
 import { toCamelCase } from "../../../../../utils/js/toCamelCase";
-import { usePostCommentContext } from "../../../../../context/postCommentContext";
+import { useCommentContext } from "../../../../../context/commentContext";
 import { userDataContext } from "../../../../../context/userContext";
+import { generateRandomString } from "../../../../../utils/js/assignRandomId";
 
 interface ICommentFormProps {
   replyId: string;
+  onSuccessReply?: (ownComment: {
+    commentId: string;
+    content: string;
+    authorUsername: string;
+    createdAtUTC: number;
+  }) => void;
 }
 
-export function CommentForm({ replyId }: ICommentFormProps) {
-  const { comment, setComment } = usePostCommentContext();
+export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
+  const { comment, setComment } = useCommentContext();
   const { username } = useContext(userDataContext);
 
   if (!username) {
@@ -24,6 +31,12 @@ export function CommentForm({ replyId }: ICommentFormProps) {
 
   const handleSubmit = () => {
     console.log(`Replied to ${replyId} with ${comment}`);
+    onSuccessReply?.({
+      commentId: generateRandomString(),
+      content: comment,
+      authorUsername: username,
+      createdAtUTC: Date.now() / 1000,
+    });
     setComment("");
   };
 

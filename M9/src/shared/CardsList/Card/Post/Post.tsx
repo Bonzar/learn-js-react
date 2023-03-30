@@ -18,7 +18,6 @@ interface IPostProps {
   authorUsername: string;
   createdAtUTC: number;
   previewSrc?: string;
-  authorAvatarSrc?: string;
   onCloseClick?: (event: MouseEvent) => void;
 }
 
@@ -28,7 +27,6 @@ export function Post(props: IPostProps) {
     postId,
     content,
     upVotesCount,
-    authorAvatarSrc,
     authorUsername,
     createdAtUTC,
     previewSrc,
@@ -55,10 +53,7 @@ export function Post(props: IPostProps) {
             {title}
           </Text>
           <MetaData>
-            <AuthorDataLabel
-              username={authorUsername}
-              avatarSrc={authorAvatarSrc}
-            />
+            <AuthorDataLabel username={authorUsername} />
             <PublishedAtLabel createdAtUTC={createdAtUTC} />
           </MetaData>
         </div>

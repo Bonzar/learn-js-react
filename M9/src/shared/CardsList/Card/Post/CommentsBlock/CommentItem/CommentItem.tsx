@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CommentForm } from "../CommentForm";
-import { tokenContext } from "../../../../../../context/tokenContext";
 import { CommentProvider } from "../../../../../../context/commentContext";
 
 import styles from "./commentitem.css";
@@ -12,9 +11,6 @@ import { MetaData } from "../../../MetaData";
 import { AuthorDataLabel } from "../../../MetaData/AuthorDataLabel";
 import { PublishedAtLabel } from "../../../MetaData/PublishedAtLabel";
 import { CommentsList } from "../CommentsList";
-
-import { decodeRedditImageUrl } from "../../../../../../utils/js/decodeRedditImageUrl";
-import axios from "axios";
 
 export interface ICommentItemProps {
   commentId: string;
@@ -31,27 +27,15 @@ export function CommentItem({
   createdAtUTC,
   replies,
 }: ICommentItemProps) {
-  const [authorAvatarSrc, setAuthorAvatarSrc] = useState("");
+  const initCommentText = () => {
+    return `${authorUsername}, `;
+  };
+
   const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
-  const [comment, setComment] = useState(`${authorUsername}, `);
+  const [comment, setComment] = useState(initCommentText);
   const [repliesList, setRepliesList] = useState<ICommentItemProps[]>(
     replies ?? []
   );
-
-  const token = useContext(tokenContext);
-
-  useEffect(() => {
-    if (authorUsername !== "[deleted]") {
-      axios
-        .get(`https://oauth.reddit.com/user/${authorUsername}/about.json`, {
-          headers: { Authorization: `bearer ${token}` },
-        })
-        .then(({ data }: { data: { data: { icon_img: string } } }) => {
-          setAuthorAvatarSrc(decodeRedditImageUrl(data.data.icon_img));
-        })
-        .catch(console.error);
-    }
-  }, []);
 
   return (
     <div className={styles.commentBlock}>
@@ -72,10 +56,7 @@ export function CommentItem({
       </div>
       <div className={styles.comment}>
         <MetaData>
-          <AuthorDataLabel
-            username={authorUsername}
-            avatarSrc={authorAvatarSrc}
-          />
+          <AuthorDataLabel username={authorUsername} />
           <PublishedAtLabel
             createdAtUTC={createdAtUTC}
             withPublishedLabel={false}
@@ -110,6 +91,7 @@ export function CommentItem({
             </Text>
           </button>
         </div>
+
         {isCommentFormOpened && (
           <div className={styles.replyForm}>
             <CommentProvider value={{ comment, setComment }}>
@@ -118,6 +100,7 @@ export function CommentItem({
                 onSuccessReply={(item) => {
                   setIsCommentFormOpened(false);
                   setRepliesList([item].concat(repliesList));
+                  setComment(initCommentText);
                 }}
                 mountWithFocus={true}
               />

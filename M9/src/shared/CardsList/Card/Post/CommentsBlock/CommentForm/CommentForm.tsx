@@ -61,13 +61,14 @@ export function CommentForm({
     if (!newOwnComment) return;
 
     console.log(`Replied to ${replyId} with ${newOwnComment}`);
+
+    setComment("");
     onSuccessReply?.({
       commentId: generateRandomString(),
       content: newOwnComment,
       authorUsername: username,
       createdAtUTC: Date.now() / 1000,
     });
-    setComment("");
   };
 
   return (

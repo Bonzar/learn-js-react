@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./authordatalabel.css";
 import { Icon } from "../../../../components/UI/Icon";
 import { Text } from "../../../../components/UI/Text";
+import axios from "axios";
+import { decodeRedditImageUrl } from "../../../../../utils/js/decodeRedditImageUrl";
+import { tokenContext } from "../../../../../context/tokenContext";
 
 interface IAuthorDataLabelProps {
-  avatarSrc?: string;
   username: string;
 }
 
-export function AuthorDataLabel({
-  avatarSrc,
-  username,
-}: IAuthorDataLabelProps) {
+export function AuthorDataLabel({ username }: IAuthorDataLabelProps) {
+  const [avatarSrc, setAvatarSrc] = useState("");
+  const token = useContext(tokenContext);
+
+  useEffect(() => {
+    axios
+      .get(`https://oauth.reddit.com/user/${username}/about.json`, {
+        headers: { Authorization: `bearer ${token}` },
+      })
+      .then(({ data }: { data: { data: { icon_img: string } } }) => {
+        setAvatarSrc(decodeRedditImageUrl(data.data.icon_img));
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <div className={styles.userLink}>
       {avatarSrc ? (

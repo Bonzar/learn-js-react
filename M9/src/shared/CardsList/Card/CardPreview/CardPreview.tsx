@@ -16,7 +16,6 @@ interface ICardPreviewProps {
 }
 
 export function CardPreview({
-  authorAvatarSrc,
   authorUsername,
   createdAtUTC,
   title,
@@ -27,10 +26,7 @@ export function CardPreview({
     <>
       <div className={styles.textContent}>
         <MetaData isTabletReverse={true} isDesktopReverse={true}>
-          <AuthorDataLabel
-            username={authorUsername}
-            avatarSrc={authorAvatarSrc}
-          />
+          <AuthorDataLabel username={authorUsername} />
           <PublishedAtLabel createdAtUTC={createdAtUTC} />
         </MetaData>
         <Text

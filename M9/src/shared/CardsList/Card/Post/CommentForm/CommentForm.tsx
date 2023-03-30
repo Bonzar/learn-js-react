@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./commentform.css";
 import { preventDefault } from "../../../../../utils/react/preventDefault";
 import { Text } from "../../../../components/UI/Text";
-import { toCamelCase } from "../../../../../utils/js/toCamelCase";
 import { useCommentContext } from "../../../../../context/commentContext";
 import { userDataContext } from "../../../../../context/userContext";
 import { generateRandomString } from "../../../../../utils/js/assignRandomId";
@@ -30,12 +29,14 @@ export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
   };
 
   const handleSubmit = () => {
-    if (!comment.trim()) return;
+    const newOwnComment = comment.trim();
 
-    console.log(`Replied to ${replyId} with ${comment}`);
+    if (!newOwnComment) return;
+
+    console.log(`Replied to ${replyId} with ${newOwnComment}`);
     onSuccessReply?.({
       commentId: generateRandomString(),
-      content: comment,
+      content: newOwnComment,
       authorUsername: username,
       createdAtUTC: Date.now() / 1000,
     });
@@ -54,8 +55,10 @@ export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
       />
       {!comment && (
         <Text className={styles.commentInputPlaceholder} size={16}>
-          {`${toCamelCase(username)}`}
-          <Text size={16}>, оставьте ваш комментарий</Text>
+          <Text size={16} className={styles.commentInputPlaceholderUsername}>
+            {username}
+          </Text>
+          , оставьте ваш комментарий
         </Text>
       )}
 

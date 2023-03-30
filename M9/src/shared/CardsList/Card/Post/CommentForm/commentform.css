@@ -20,8 +20,11 @@
   position: absolute;
   top: 16px;
   left: 18px;
-  color: var(--orange);
   pointer-events: none;
+}
+
+.commentInputPlaceholderUsername {
+  color: var(--orange);
 }
 
 .commentForm {

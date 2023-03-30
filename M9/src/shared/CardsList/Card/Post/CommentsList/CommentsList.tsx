@@ -7,6 +7,7 @@ import axios from "axios";
 import { Text } from "../../../../components/UI/Text";
 import { CommentForm } from "../CommentForm";
 import { Divider } from "../../../../components/UI/Divider";
+import { OwnComments } from "./OwnComments";
 
 interface ICommentsListProps {
   postId: string;
@@ -125,17 +126,7 @@ export function CommentsList({ postId }: ICommentsListProps) {
       {status === "ready" &&
         (comments.length > 0 || ownComments.length > 0) && (
           <ul className={styles.commentsList}>
-            {ownComments.length > 0 && (
-              <GenericList
-                list={ownComments.map((item) => {
-                  return {
-                    children: <CommentItem {...item} />,
-                    As: "li" as const,
-                    id: item.commentId,
-                  };
-                })}
-              />
-            )}
+            {ownComments.length > 0 && <OwnComments comments={ownComments} />}
             {comments.length > 0 && unpackComments(comments)}
           </ul>
         )}

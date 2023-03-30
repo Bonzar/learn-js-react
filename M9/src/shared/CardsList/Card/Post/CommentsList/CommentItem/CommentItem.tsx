@@ -12,6 +12,7 @@ import { decodeRedditImageUrl } from "../../../../../../utils/js/decodeRedditIma
 import { CommentForm } from "../../CommentForm";
 import { GenericList } from "../../../../../components/UI/GenericList";
 import { CommentProvider } from "../../../../../../context/commentContext";
+import { OwnComments } from "../OwnComments";
 
 export interface ICommentItemProps {
   commentId: string;
@@ -122,15 +123,7 @@ export function CommentItem({
             {
               <>
                 {ownComments.length > 0 && (
-                  <GenericList
-                    list={ownComments.map((item) => {
-                      return {
-                        children: <CommentItem {...item} />,
-                        As: "li" as const,
-                        id: item.commentId,
-                      };
-                    })}
-                  />
+                  <OwnComments comments={ownComments} />
                 )}
                 {children && children}
               </>

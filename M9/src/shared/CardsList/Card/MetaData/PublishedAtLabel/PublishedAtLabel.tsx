@@ -3,7 +3,6 @@ import styles from "./publishedatlabel.css";
 import { Text } from "../../../../components/UI/Text";
 import { formatDistanceToNow } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
-import { ca } from "date-fns/locale";
 
 interface IPublishedAtLabelProps {
   createdAtUTC: number;

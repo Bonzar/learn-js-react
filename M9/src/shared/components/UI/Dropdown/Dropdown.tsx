@@ -10,7 +10,6 @@ interface IDropdownButtonProps {
 }
 
 interface IDropdownProps {
-  className?: string;
   button: (props: IDropdownButtonProps) => React.ReactElement;
   children: ReactNode;
   isOpen?: boolean;
@@ -80,6 +79,7 @@ export function Dropdown({
       {isDropdownOpen && (
         <Modal onOutsideClick={stopPropagation(() => setIsDropdownOpen(false))}>
           <div
+            data-testid="dropdown"
             className={styles.dropdown}
             onClick={stopPropagation(() => setIsDropdownOpen(false))}
             style={{ ...position }}

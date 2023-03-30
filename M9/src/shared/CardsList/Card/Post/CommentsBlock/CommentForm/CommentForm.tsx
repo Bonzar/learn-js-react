@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { userDataContext } from "../../../../../../context/userContext";
 import { useCommentContext } from "../../../../../../context/commentContext";
 
@@ -17,15 +17,39 @@ interface ICommentFormProps {
     authorUsername: string;
     createdAtUTC: number;
   }) => void;
+  mountWithFocus?: boolean;
 }
 
-export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
+export function CommentForm({
+  replyId,
+  onSuccessReply,
+  mountWithFocus = false,
+}: ICommentFormProps) {
   const { comment, setComment } = useCommentContext();
   const { username } = useContext(userDataContext);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   if (!username) {
     return null;
   }
+
+  useEffect(() => {
+    if (!mountWithFocus) {
+      return;
+    }
+
+    if (!textAreaRef.current) {
+      return;
+    }
+
+    const initialValueLength = textAreaRef.current.value.length;
+    textAreaRef.current.setSelectionRange(
+      initialValueLength,
+      initialValueLength
+    );
+
+    textAreaRef.current.focus();
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.currentTarget.value);
@@ -55,6 +79,7 @@ export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
         className={styles.commentInput}
         value={comment}
         onChange={handleChange}
+        ref={textAreaRef}
       />
       {!comment && (
         <Text className={styles.commentInputPlaceholder} size={16}>
@@ -83,11 +108,15 @@ interface ICommentFormUncontrolledProps {
     authorUsername: string;
     createdAtUTC: number;
   }) => void;
+  initialValue?: string;
+  mountWithFocus?: boolean;
 }
 
 export function CommentFormUncontrolled({
   replyId,
   onSuccessReply,
+  initialValue,
+  mountWithFocus = false,
 }: ICommentFormUncontrolledProps) {
   const { username } = useContext(userDataContext);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -95,6 +124,24 @@ export function CommentFormUncontrolled({
   if (!username) {
     return null;
   }
+
+  useEffect(() => {
+    if (!mountWithFocus) {
+      return;
+    }
+
+    if (!textAreaRef.current) {
+      return;
+    }
+
+    const initialValueLength = textAreaRef.current.value.length;
+    textAreaRef.current.setSelectionRange(
+      initialValueLength,
+      initialValueLength
+    );
+
+    textAreaRef.current.focus();
+  }, []);
 
   const handleSubmit = () => {
     const newOwnComment = textAreaRef.current?.value;
@@ -108,7 +155,7 @@ export function CommentFormUncontrolled({
       commentId: generateRandomString(),
       content: newOwnCommentTrimmed,
       authorUsername: username,
-      createdAtUTC: Date.now() / 1000 - 1,
+      createdAtUTC: Date.now() / 1000,
     });
     textAreaRef.current.value = "";
   };
@@ -122,6 +169,7 @@ export function CommentFormUncontrolled({
         className={styles.commentInput}
         ref={textAreaRef}
         placeholder={`${username}, оставьте ваш комментарий`}
+        defaultValue={initialValue}
       />
 
       <fieldset className={styles.commentActions}></fieldset>

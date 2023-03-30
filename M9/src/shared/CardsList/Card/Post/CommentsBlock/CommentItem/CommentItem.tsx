@@ -33,7 +33,7 @@ export function CommentItem({
 }: ICommentItemProps) {
   const [authorAvatarSrc, setAuthorAvatarSrc] = useState("");
   const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(`${authorUsername}, `);
   const [repliesList, setRepliesList] = useState<ICommentItemProps[]>(
     replies ?? []
   );
@@ -119,6 +119,7 @@ export function CommentItem({
                   setIsCommentFormOpened(false);
                   setRepliesList([item].concat(repliesList));
                 }}
+                mountWithFocus={true}
               />
             </CommentProvider>
           </div>

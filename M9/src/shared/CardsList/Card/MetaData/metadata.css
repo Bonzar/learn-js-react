@@ -8,6 +8,10 @@
   padding-left: 6px;
 }
 
+.metaData > * {
+  flex-shrink: 0;
+}
+
 @media all and (min-width: 1024px) {
   .metaData {
     flex-flow: row-reverse nowrap;

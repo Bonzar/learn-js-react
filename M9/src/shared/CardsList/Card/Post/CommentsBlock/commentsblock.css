@@ -1,0 +1,4 @@
+.commentsBlock {
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}

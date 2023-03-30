@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { userDataContext } from "../../../../../../context/userContext";
 import { useCommentContext } from "../../../../../../context/commentContext";
 
@@ -64,6 +64,65 @@ export function CommentForm({ replyId, onSuccessReply }: ICommentFormProps) {
           , оставьте ваш комментарий
         </Text>
       )}
+
+      <fieldset className={styles.commentActions}></fieldset>
+      <button className={styles.submit} type="submit">
+        <Text bold color="white">
+          Комментировать
+        </Text>
+      </button>
+    </form>
+  );
+}
+
+interface ICommentFormUncontrolledProps {
+  replyId: string;
+  onSuccessReply?: (ownComment: {
+    commentId: string;
+    content: string;
+    authorUsername: string;
+    createdAtUTC: number;
+  }) => void;
+}
+
+export function CommentFormUncontrolled({
+  replyId,
+  onSuccessReply,
+}: ICommentFormUncontrolledProps) {
+  const { username } = useContext(userDataContext);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  if (!username) {
+    return null;
+  }
+
+  const handleSubmit = () => {
+    const newOwnComment = textAreaRef.current?.value;
+    if (!newOwnComment) return;
+
+    const newOwnCommentTrimmed = newOwnComment?.trim();
+    if (!newOwnCommentTrimmed) return;
+
+    console.log(`Replied to ${replyId} with ${newOwnComment}`);
+    onSuccessReply?.({
+      commentId: generateRandomString(),
+      content: newOwnCommentTrimmed,
+      authorUsername: username,
+      createdAtUTC: Date.now() / 1000 - 1,
+    });
+    textAreaRef.current.value = "";
+  };
+
+  return (
+    <form
+      className={styles.commentForm}
+      onSubmit={preventDefault(handleSubmit)}
+    >
+      <textarea
+        className={styles.commentInput}
+        ref={textAreaRef}
+        placeholder={`${username}, оставьте ваш комментарий`}
+      />
 
       <fieldset className={styles.commentActions}></fieldset>
       <button className={styles.submit} type="submit">

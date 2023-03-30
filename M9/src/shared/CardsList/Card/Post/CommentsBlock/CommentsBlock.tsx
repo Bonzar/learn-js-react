@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useToken } from "../../../../../hooks/useToken";
 
-// import styles from "./commentsblock.css";
+import styles from "./commentsblock.css";
 
 import { ICommentItemProps } from "./CommentItem";
 import { Text } from "../../../../components/UI/Text";
@@ -53,8 +53,9 @@ interface IPostComments {
 export function CommentsBlock({ postId }: ICommentsListProps) {
   const token = useToken();
   const [comments, setComments] = useState<ICommentItemProps[]>([]);
-  const [status, setStatus] = useState<"loading" | "ready" | "error">(
-    "loading"
+  const [apiComments, setApiComments] = useState<ICommentItemProps[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "error" | null>(
+    null
   );
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export function CommentsBlock({ postId }: ICommentsListProps) {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }: IPostComments) => {
-        setComments(unpackComments(data[1].data.children));
+        setApiComments(unpackComments(data[1].data.children));
         setStatus("ready");
       })
       .catch((error) => {
@@ -72,6 +73,10 @@ export function CommentsBlock({ postId }: ICommentsListProps) {
         console.error(error);
       });
   }, []);
+
+  useEffect(() => {
+    setComments(comments.concat(apiComments));
+  }, [apiComments]);
 
   const unpackComments = (comments: TComment[]): ICommentItemProps[] => {
     const commentWithoutMore = comments.filter(
@@ -98,22 +103,21 @@ export function CommentsBlock({ postId }: ICommentsListProps) {
       <CommentForm
         replyId={postId}
         onSuccessReply={(item) => {
-          setStatus("ready");
           setComments([item].concat(comments));
         }}
       />
 
       <Divider color="greyD9" />
 
-      {status === "loading" && <Text>Загрузка комментариев ... </Text>}
-      {status === "error" && <Text>Ошибка загрузки комментариев 🫣</Text>}
-      {status === "ready" && comments.length === 0 && (
-        <Text>Здесь пока пусто 🫣</Text>
-      )}
+      <div className={styles.commentsBlock}>
+        {comments.length > 0 && <CommentsList comments={comments} />}
 
-      {status === "ready" && comments.length > 0 && (
-        <CommentsList comments={comments} />
-      )}
+        {status === "loading" && <Text>Загрузка комментариев ... </Text>}
+        {status === "error" && <Text>Ошибка загрузки комментариев 🫣</Text>}
+        {status === "ready" && comments.length === 0 && (
+          <Text>Здесь пока пусто 🫣</Text>
+        )}
+      </div>
     </>
   );
 }

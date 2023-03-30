@@ -49,12 +49,9 @@ export function Dropdown({
     const dropdownCoors = getCoords(dropdownEl);
     const buttonCoors = getCoords(anchorButtonEl);
 
-    const TOP_SPACE = 5;
-    const RIGHT_SPACE = 5;
-
     setPosition({
-      top: buttonCoors.top + buttonCoors.height + TOP_SPACE,
-      left: buttonCoors.left + buttonCoors.width / 2 - dropdownCoors.width / 2, // +  RIGHT_SPACE,
+      top: buttonCoors.top + buttonCoors.height,
+      left: buttonCoors.left + buttonCoors.width / 2 - dropdownCoors.width / 2,
     });
   }, [isDropdownOpen]);
 

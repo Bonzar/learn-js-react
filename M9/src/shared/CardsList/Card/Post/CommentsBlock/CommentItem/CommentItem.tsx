@@ -1,38 +1,43 @@
-import React, { ReactNode, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CommentForm } from "../CommentForm";
+import { tokenContext } from "../../../../../../context/tokenContext";
+import { CommentProvider } from "../../../../../../context/commentContext";
+
 import styles from "./commentitem.css";
+
 import { Icon } from "../../../../../components/UI/Icon";
 import { Divider } from "../../../../../components/UI/Divider";
 import { Text } from "../../../../../components/UI/Text";
 import { MetaData } from "../../../MetaData";
 import { AuthorDataLabel } from "../../../MetaData/AuthorDataLabel";
 import { PublishedAtLabel } from "../../../MetaData/PublishedAtLabel";
-import { tokenContext } from "../../../../../../context/tokenContext";
-import axios from "axios";
+import { CommentsList } from "../CommentsList";
+
 import { decodeRedditImageUrl } from "../../../../../../utils/js/decodeRedditImageUrl";
-import { CommentForm } from "../../CommentForm";
-import { GenericList } from "../../../../../components/UI/GenericList";
-import { CommentProvider } from "../../../../../../context/commentContext";
-import { OwnComments } from "../OwnComments";
+import axios from "axios";
 
 export interface ICommentItemProps {
   commentId: string;
   authorUsername: string;
   content: string;
   createdAtUTC: number;
-  children?: ReactNode;
+  replies?: ICommentItemProps[];
 }
 
 export function CommentItem({
   commentId,
-  children,
   authorUsername,
   content,
   createdAtUTC,
+  replies,
 }: ICommentItemProps) {
   const [authorAvatarSrc, setAuthorAvatarSrc] = useState("");
   const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
   const [comment, setComment] = useState("");
-  const [ownComments, setOwnComments] = useState<ICommentItemProps[]>([]);
+  const [repliesList, setRepliesList] = useState<ICommentItemProps[]>(
+    replies ?? []
+  );
+
   const token = useContext(tokenContext);
 
   useEffect(() => {
@@ -112,24 +117,14 @@ export function CommentItem({
                 replyId={commentId}
                 onSuccessReply={(item) => {
                   setIsCommentFormOpened(false);
-                  setOwnComments([item].concat(ownComments));
+                  setRepliesList([item].concat(repliesList));
                 }}
               />
             </CommentProvider>
           </div>
         )}
-        {(children || ownComments.length > 0) && (
-          <ul>
-            {
-              <>
-                {ownComments.length > 0 && (
-                  <OwnComments comments={ownComments} />
-                )}
-                {children && children}
-              </>
-            }
-          </ul>
-        )}
+
+        {repliesList.length > 0 && <CommentsList comments={repliesList} />}
       </div>
     </div>
   );

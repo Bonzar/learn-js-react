@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
+import { userDataContext } from "../../../../../../context/userContext";
+import { useCommentContext } from "../../../../../../context/commentContext";
+
 import styles from "./commentform.css";
-import { preventDefault } from "../../../../../utils/react/preventDefault";
-import { Text } from "../../../../components/UI/Text";
-import { useCommentContext } from "../../../../../context/commentContext";
-import { userDataContext } from "../../../../../context/userContext";
-import { generateRandomString } from "../../../../../utils/js/assignRandomId";
+
+import { Text } from "../../../../../components/UI/Text";
+
+import { generateRandomString } from "../../../../../../utils/js/assignRandomId";
+import { preventDefault } from "../../../../../../utils/react/preventDefault";
 
 interface ICommentFormProps {
   replyId: string;

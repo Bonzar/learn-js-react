@@ -1,4 +1,4 @@
-import { useContext, MouseEvent, useState } from "react";
+import { useContext, MouseEvent } from "react";
 import styles from "./post.css";
 import { Text } from "../../../components/UI/Text";
 import { KarmaCounter } from "../KarmaCounter";
@@ -6,7 +6,7 @@ import { Divider } from "../../../components/UI/Divider";
 import { PublishedAtLabel } from "../MetaData/PublishedAtLabel";
 import { AuthorDataLabel } from "../MetaData/AuthorDataLabel";
 import { MetaData } from "../MetaData";
-import { CommentsList } from "./CommentsList";
+import { CommentsBlock } from "./CommentsBlock";
 import { userDataContext } from "../../../../context/userContext";
 import { Icon } from "../../../components/UI/Icon";
 
@@ -93,7 +93,7 @@ export function Post(props: IPostProps) {
           </Text>
         )}
 
-        {loggedUsername && <CommentsList postId={postId} />}
+        {loggedUsername && <CommentsBlock postId={postId} />}
       </div>
     </article>
   );

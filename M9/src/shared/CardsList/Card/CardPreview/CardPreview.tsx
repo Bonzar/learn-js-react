@@ -26,7 +26,7 @@ export function CardPreview({
   return (
     <>
       <div className={styles.textContent}>
-        <MetaData>
+        <MetaData isTabletReverse={true} isDesktopReverse={true}>
           <AuthorDataLabel
             username={authorUsername}
             avatarSrc={authorAvatarSrc}

@@ -72,13 +72,13 @@ export function CommentItem({
       </div>
       <div className={styles.comment}>
         <MetaData>
-          <PublishedAtLabel
-            createdAtUTC={createdAtUTC}
-            withPublishedLabel={false}
-          />
           <AuthorDataLabel
             username={authorUsername}
             avatarSrc={authorAvatarSrc}
+          />
+          <PublishedAtLabel
+            createdAtUTC={createdAtUTC}
+            withPublishedLabel={false}
           />
         </MetaData>
         <Text As="p" className={styles.content}>

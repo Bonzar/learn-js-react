@@ -18,8 +18,9 @@
 
 .commentInputPlaceholder {
   position: absolute;
-  top: 16px;
-  left: 18px;
+  top: 0;
+  left: 0;
+  padding: 16px 18px;
   pointer-events: none;
 }
 

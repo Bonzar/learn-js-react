@@ -5,7 +5,7 @@ export const indexTemplate = (content) => `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React App</title>
-    <script src="/static/client.js" type="application/javascript" defer></script>
+    <script src="/static/client.js" type="application/javascript"></script>
 </head>
 <body>
     <div id="react-root">${content}</div>

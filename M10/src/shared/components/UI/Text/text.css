@@ -1,0 +1,177 @@
+.s28 {
+  font-size: 2.8rem;
+  line-height: 3.3rem;
+}
+
+.s20 {
+  font-size: 2.0rem;
+  line-height: 2.3rem;
+}
+
+.s16 {
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+}
+
+.s14 {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.s12 {
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+}
+
+.s10 {
+  font-size: 1.0rem;
+  line-height: 1.2rem;
+}
+
+.black {
+  color: var(--black);
+}
+
+.orange {
+  color: var(--orange);
+}
+
+.green {
+  color: var(--green);
+}
+
+.white {
+  color: var(--white);
+}
+
+.greyF4 {
+  color: var(--greyF4);
+}
+
+.greyF3 {
+  color: var(--greyF3);
+}
+
+.greyD9 {
+  color: var(--greyD9);
+}
+
+.greyC4 {
+  color: var(--greyC4);
+}
+
+.grey99 {
+  color: var(--grey99);
+}
+
+.grey66 {
+  color: var(--grey66);
+}
+
+.greyAD {
+  color: var(--greyAD);
+}
+
+.upperCase {
+  text-transform: uppercase;
+}
+
+@media all and (min-width: 320px) and (max-width: 1023px) {
+  .m28 {
+    font-size: 2.8rem;
+    line-height: 3.3rem;
+  }
+
+  .m20 {
+    font-size: 2.0rem;
+    line-height: 2.3rem;
+  }
+
+  .m16 {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
+
+  .m14 {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+
+  .m12 {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+
+  .m10 {
+    font-size: 1.0rem;
+    line-height: 1.2rem;
+  }
+}
+
+.bold {
+  font-weight: 600;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1539px) {
+  .t28 {
+    font-size: 2.8rem;
+    line-height: 3.3rem;
+  }
+
+  .t20 {
+    font-size: 2.0rem;
+    line-height: 2.3rem;
+  }
+
+  .t16 {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
+
+  .t14 {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+
+  .t12 {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+
+  .t10 {
+    font-size: 1.0rem;
+    line-height: 1.2rem;
+  }
+}
+
+@media all and (min-width: 1540px) {
+  .d28 {
+    font-size: 2.8rem;
+    line-height: 3.3rem;
+  }
+
+  .d20 {
+    font-size: 2.0rem;
+    line-height: 2.3rem;
+  }
+
+  .d16 {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
+
+  .d14 {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+
+  .d12 {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+
+  .d10 {
+    font-size: 1.0rem;
+    line-height: 1.2rem;
+  }
+}

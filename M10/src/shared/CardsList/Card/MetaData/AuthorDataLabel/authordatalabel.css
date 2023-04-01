@@ -1,0 +1,11 @@
+.userLink {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 20px;
+}
+
+.username {
+  position: relative;
+  z-index: 1;
+}

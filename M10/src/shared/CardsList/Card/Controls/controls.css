@@ -1,0 +1,53 @@
+.commentsButton {
+  display: flex;
+  align-items: normal;
+}
+
+.commentsNumber {
+  padding: 0 0 0 6px;
+}
+
+@media all and (min-width: 1024px) {
+  .commentsButton {
+    display: none;
+  }
+}
+
+.controls {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.actions > * + * {
+  margin: 0 0 0 13px;
+}
+
+@media all and (min-width: 1024px) {
+  .controls {
+    order: 3;
+    flex: 0 0;
+    margin: 0 0 0 24px;
+  }
+
+  .actions {
+    display: none;
+  }
+}
+
+.shareButton {
+  width: 20px;
+  height: 20px;
+}
+
+.saveButton {
+  width: 20px;
+  height: 20px;
+}

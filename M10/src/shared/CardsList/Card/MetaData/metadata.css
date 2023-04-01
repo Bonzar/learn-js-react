@@ -1,0 +1,37 @@
+.metaData {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.metaData > :not(:first-child) {
+  padding-left: 6px;
+}
+
+.metaData > * {
+  flex-shrink: 0;
+}
+
+@media all and (min-width: 1024px) {
+  .metaData.t-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .metaData.t-reverse > :not(:first-child) {
+    padding-left: unset;
+    padding-right: 5px;
+  }
+}
+
+@media all and (min-width: 1540px) {
+  .metaData.d-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .metaData.d-reverse > :not(:first-child) {
+    padding-left: unset;
+    padding-right: 5px;
+  }
+}

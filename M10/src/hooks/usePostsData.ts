@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import { tokenContext } from "../context/tokenContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAppSelector } from "../store/hooks";
+import { selectToken } from "../store/slices/tokenSlice";
 
 interface IPostData {
   data: {
@@ -16,7 +17,7 @@ interface IPostData {
 }
 
 export const usePostsData = () => {
-  const token = useContext(tokenContext);
+  const token = useAppSelector(selectToken);
 
   const [postsData, setPostsData] = useState<IPostData[]>([]);
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useToken } from "./useToken";
 import axios from "axios";
+import { useAppSelector } from "../store/hooks";
+import { selectToken } from "../store/slices/tokenSlice";
 
 export interface ICommentData {
   data: {
@@ -50,7 +51,7 @@ export function useCommentsData(postId: string) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const token = useToken();
+  const token = useAppSelector(selectToken);
 
   const unpackComments = (comments: TComment[]): IUnpackedComments[] => {
     const commentWithoutMore = comments.filter(

@@ -4,13 +4,16 @@ import { Layout } from "./Layout";
 import { Content } from "./Content";
 import { Header } from "./Header";
 import { CardsList } from "./CardsList";
-import { TokenContextProvider } from "../context/tokenContext";
 import { UserDataContextProvider } from "../context/userContext";
 import { PostsDataContextProvider } from "../context/postsDataContext";
+import { Provider } from "react-redux";
+import store from "../store/store";
+import { TokenExtractor } from "./TokenExtractor";
 
 const App = () => {
   return (
-    <TokenContextProvider>
+    <Provider store={store}>
+      <TokenExtractor />
       <UserDataContextProvider>
         <Layout>
           <Header />
@@ -21,7 +24,7 @@ const App = () => {
           </Content>
         </Layout>
       </UserDataContextProvider>
-    </TokenContextProvider>
+    </Provider>
   );
 };
 

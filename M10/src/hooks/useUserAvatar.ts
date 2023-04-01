@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { tokenContext } from "../context/tokenContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { decodeRedditImageUrl } from "../utils/js/decodeRedditImageUrl";
+import { useAppSelector } from "../store/hooks";
+import { selectToken } from "../store/slices/tokenSlice";
 
 interface UserData {
   data: {
@@ -13,7 +14,7 @@ export function useUserAvatar(username: string) {
   const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const token = useContext(tokenContext);
+  const token = useAppSelector(selectToken);
 
   useEffect(() => {
     axios

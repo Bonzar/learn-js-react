@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import { tokenContext } from "../context/tokenContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAppSelector } from "../store/hooks";
+import { selectToken } from "../store/slices/tokenSlice";
 
 interface IUserData {
   username?: string;
@@ -8,7 +9,7 @@ interface IUserData {
 }
 
 export function useUserData() {
-  const token = useContext(tokenContext);
+  const token = useAppSelector(selectToken);
 
   const [userData, setUserData] = useState<IUserData>({});
   useEffect(() => {

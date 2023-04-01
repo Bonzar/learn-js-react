@@ -27,12 +27,12 @@ export function CommentItem({
   createdAtUTC,
   replies,
 }: ICommentItemProps) {
-  const initCommentText = () => {
+  const getInitCommentText = () => {
     return `${authorUsername}, `;
   };
 
   const [isCommentFormOpened, setIsCommentFormOpened] = useState(false);
-  const [comment, setComment] = useState(initCommentText);
+  const [comment, setComment] = useState(getInitCommentText);
   const [repliesList, setRepliesList] = useState<ICommentItemProps[]>(
     replies ?? []
   );
@@ -100,7 +100,7 @@ export function CommentItem({
                 onSuccessReply={(item) => {
                   setIsCommentFormOpened(false);
                   setRepliesList([item].concat(repliesList));
-                  setComment(initCommentText);
+                  setComment(getInitCommentText);
                 }}
                 mountWithFocus={true}
               />

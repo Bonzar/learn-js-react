@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useToken } from "../../../../../hooks/useToken";
+import { useEffect, useState } from "react";
 
 import styles from "./commentsblock.css";
 
@@ -8,95 +7,21 @@ import { Text } from "../../../../components/UI/Text";
 import { CommentForm } from "./CommentForm";
 import { Divider } from "../../../../components/UI/Divider";
 import { CommentsList } from "./CommentsList";
-
-import axios from "axios";
+import { useCommentsData } from "../../../../../hooks/useCommentsData";
 
 interface ICommentsListProps {
   postId: string;
 }
 
-interface ICommentData {
-  data: {
-    author: string;
-    created_utc: number;
-    body: string;
-    id: string;
-    replies?: {
-      data: {
-        children: TComment[];
-      };
-    };
-    ups: number;
-    num_comments: number;
-  };
-  kind: "t1";
-}
-
-interface ICommentMore {
-  data: { children: string[] };
-  kind: "more";
-}
-
-type TComment = ICommentData | ICommentMore;
-
-interface IPostComments {
-  data: [
-    Record<string, unknown>,
-    {
-      data: {
-        children: TComment[];
-      };
-    }
-  ];
-}
-
 export function CommentsBlock({ postId }: ICommentsListProps) {
-  const token = useToken();
   const [comments, setComments] = useState<ICommentItemProps[]>([]);
-  const [apiComments, setApiComments] = useState<ICommentItemProps[]>([]);
-  const [status, setStatus] = useState<"loading" | "ready" | "error" | null>(
-    null
-  );
+  const { comments: apiComments, isLoading, error } = useCommentsData(postId);
 
   useEffect(() => {
-    setStatus("loading");
-    axios
-      .get(`https://oauth.reddit.com/comments/${postId}.json`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }: IPostComments) => {
-        setApiComments(unpackComments(data[1].data.children));
-        setStatus("ready");
-      })
-      .catch((error) => {
-        setStatus("error");
-        console.error(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    setComments(comments.concat(apiComments));
+    if (apiComments.length > 0) {
+      setComments(comments.concat(apiComments));
+    }
   }, [apiComments]);
-
-  const unpackComments = (comments: TComment[]): ICommentItemProps[] => {
-    const commentWithoutMore = comments.filter(
-      (item): item is ICommentData => item.kind === "t1"
-    );
-
-    return commentWithoutMore.map((item) => {
-      const {
-        data: { author, replies, body, created_utc, id },
-      } = item;
-
-      return {
-        commentId: id,
-        content: body,
-        authorUsername: author,
-        createdAtUTC: created_utc,
-        replies: replies && unpackComments(replies.data.children),
-      };
-    });
-  };
 
   return (
     <>
@@ -109,15 +34,16 @@ export function CommentsBlock({ postId }: ICommentsListProps) {
 
       <Divider color="greyD9" />
 
-      <div className={styles.commentsBlock}>
-        {comments.length > 0 && <CommentsList comments={comments} />}
-
-        {status === "loading" && <Text>Загрузка комментариев ... </Text>}
-        {status === "error" && <Text>Ошибка загрузки комментариев 🫣</Text>}
-        {status === "ready" && comments.length === 0 && (
-          <Text>Здесь пока пусто 🫣</Text>
-        )}
-      </div>
+      {comments.length > 0 && (
+        <div className={styles.commentsBlock}>
+          <CommentsList comments={comments} />
+        </div>
+      )}
+      {!isLoading && !error && comments.length === 0 && (
+        <Text>Здесь пока пусто 🫣</Text>
+      )}
+      {isLoading && <Text>Загрузка комментариев ... </Text>}
+      {error && <Text>Ошибка загрузки комментариев 🫣</Text>}
     </>
   );
 }

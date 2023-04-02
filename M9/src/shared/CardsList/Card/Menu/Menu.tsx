@@ -12,15 +12,11 @@ export function Menu({ postId }: IMenuProps) {
   return (
     <div className={styles.menu}>
       <Dropdown
-        button={({ setButtonRef, onClick }) => (
-          <button
-            className={styles.menuButton}
-            onClick={onClick}
-            ref={setButtonRef}
-          >
+        button={
+          <button className={styles.menuButton}>
             <Icon name="Menu" size={20} color="greyD9" />
           </button>
-        )}
+        }
       >
         <div className={styles.dropdown}>
           <MenuItemsList postId={postId} />

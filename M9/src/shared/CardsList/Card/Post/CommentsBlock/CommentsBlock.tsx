@@ -7,11 +7,42 @@ import { Text } from "../../../../components/UI/Text";
 import { CommentForm } from "./CommentForm";
 import { Divider } from "../../../../components/UI/Divider";
 import { CommentsList } from "./CommentsList";
-import { useCommentsData } from "../../../../../hooks/useCommentsData";
+import {
+  useCommentsData,
+  TComment,
+  ICommentData,
+} from "../../../../../hooks/useCommentsData";
 
 interface ICommentsListProps {
   postId: string;
 }
+
+interface IUnpackedComments {
+  commentId: string;
+  authorUsername: string;
+  content: string;
+  createdAtUTC: number;
+  replies?: IUnpackedComments[];
+}
+
+const unpackComments = (comments: TComment[]): IUnpackedComments[] => {
+  const commentWithoutMore = comments.filter(
+    (item): item is ICommentData => item.kind === "t1"
+  );
+  return commentWithoutMore.map((item) => {
+    const {
+      data: { author, replies, body, created_utc, id },
+    } = item;
+
+    return {
+      commentId: id,
+      content: body,
+      authorUsername: author,
+      createdAtUTC: created_utc,
+      replies: replies ? unpackComments(replies.data.children) : [],
+    };
+  });
+};
 
 export function CommentsBlock({ postId }: ICommentsListProps) {
   const [comments, setComments] = useState<ICommentItemProps[]>([]);
@@ -19,7 +50,7 @@ export function CommentsBlock({ postId }: ICommentsListProps) {
 
   useEffect(() => {
     if (apiComments.length > 0) {
-      setComments(comments.concat(apiComments));
+      setComments(comments.concat(unpackComments(apiComments)));
     }
   }, [apiComments]);
 

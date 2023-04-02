@@ -1,16 +1,10 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./dropdown.css";
 import { stopPropagation } from "../../../../utils/react/stopPropagation";
 import { Modal } from "../Modal";
-import { getCoords } from "../../../../utils/js/getCoords";
-
-interface IDropdownButtonProps {
-  onClick: (event: React.MouseEvent) => void;
-  setButtonRef: (a: HTMLElement | null) => void;
-}
 
 interface IDropdownProps {
-  button: (props: IDropdownButtonProps) => React.ReactElement;
+  button: React.ReactNode;
   children: ReactNode;
   isOpen?: boolean;
   onOpen?: () => void;
@@ -26,33 +20,27 @@ export function Dropdown({
 }: IDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen);
   const [position, setPosition] = useState({ top: 0, left: 0 });
-
-  const [anchorButtonEl, setAnchorButtonEl] = useState<HTMLElement | null>(
+  const [buttonEl, setButtonEl] = useState<HTMLDivElement | null>(
     null
   );
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setIsDropdownOpen(isOpen), [isOpen]);
 
   useEffect(() => {
-    if (!isDropdownOpen) {
+    if (!isDropdownOpen || !buttonEl) {
       return;
     }
 
-    const dropdownEl = dropdownRef.current;
+    const buttonCoors = buttonEl.getBoundingClientRect();
 
-    if (!anchorButtonEl || !dropdownEl) {
-      return;
-    }
-
-    const dropdownCoors = getCoords(dropdownEl);
-    const buttonCoors = getCoords(anchorButtonEl);
+    const LEFT_SPACE = 130;
+    const TOP_SPACE = 30;
 
     setPosition({
-      top: buttonCoors.top + buttonCoors.height,
-      left: buttonCoors.left + buttonCoors.width / 2 - dropdownCoors.width / 2,
+      top: buttonCoors.top + TOP_SPACE,
+      left: buttonCoors.left - LEFT_SPACE,
     });
-  }, [isDropdownOpen]);
+  }, [isDropdownOpen]); 
 
   useEffect(() => {
     if (isDropdownOpen !== undefined) {
@@ -63,8 +51,10 @@ export function Dropdown({
       }
     }
   }, [isDropdownOpen]);
+  
+  const handleBtnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    setButtonEl(e.currentTarget);
 
-  const handleBtnClick = () => {
     if (isOpen === undefined) {
       setIsDropdownOpen(!isDropdownOpen);
     }
@@ -72,10 +62,7 @@ export function Dropdown({
 
   return (
     <>
-      {button({
-        onClick: stopPropagation(handleBtnClick),
-        setButtonRef: (el: HTMLElement | null) => setAnchorButtonEl(el),
-      })}
+      <div onClick={handleBtnClick}>{button}</div>
       {isDropdownOpen && (
         <Modal onOutsideClick={stopPropagation(() => setIsDropdownOpen(false))}>
           <div
@@ -83,7 +70,6 @@ export function Dropdown({
             className={styles.dropdown}
             onClick={stopPropagation(() => setIsDropdownOpen(false))}
             style={{ ...position }}
-            ref={dropdownRef}
           >
             {children}
           </div>

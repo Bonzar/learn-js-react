@@ -15,6 +15,12 @@ interface IPostData {
   };
 }
 
+interface IPostsData {
+  data: {
+    children: IPostData[];
+  };
+}
+
 export const usePostsData = () => {
   const token = useContext(tokenContext);
 
@@ -22,10 +28,10 @@ export const usePostsData = () => {
 
   useEffect(() => {
     axios
-      .get("https://oauth.reddit.com/best.json?sr_detail=true", {
+      .get<IPostsData>("https://oauth.reddit.com/best.json?sr_detail=true", {
         headers: { Authorization: `bearer ${token}` },
       })
-      .then(({ data }: { data: { data: { children: IPostData[] } } }) => {
+      .then(({ data }) => {
         setPostsData(data.data.children);
       })
       .catch(console.error);
